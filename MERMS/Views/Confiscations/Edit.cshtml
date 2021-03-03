@@ -1,0 +1,104 @@
+﻿@model MERMS.Models.Confiscation
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Confiscation</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Jurisdiction" class="control-label"></label>
+                <input asp-for="Jurisdiction" class="form-control" />
+                <span asp-validation-for="Jurisdiction" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateFiled" class="control-label"></label>
+                <input asp-for="DateFiled" class="form-control" />
+                <span asp-validation-for="DateFiled" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DocketCaseNo" class="control-label"></label>
+                <input asp-for="DocketCaseNo" class="form-control" />
+                <span asp-validation-for="DocketCaseNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaseTitleRespondent" class="control-label"></label>
+                <input asp-for="CaseTitleRespondent" class="form-control" />
+                <span asp-validation-for="CaseTitleRespondent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NatureOfViolation" class="control-label"></label>
+                <input asp-for="NatureOfViolation" class="form-control" />
+                <span asp-validation-for="NatureOfViolation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CourtFiled" class="control-label"></label>
+                <input asp-for="CourtFiled" class="form-control" />
+                <span asp-validation-for="CourtFiled" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VehiclePlateNo" class="control-label"></label>
+                <input asp-for="VehiclePlateNo" class="form-control" />
+                <span asp-validation-for="VehiclePlateNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KindSpecies" class="control-label"></label>
+                <input asp-for="KindSpecies" class="form-control" />
+                <span asp-validation-for="KindSpecies" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstimatedValue" class="control-label"></label>
+                <input asp-for="EstimatedValue" class="form-control" />
+                <span asp-validation-for="EstimatedValue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ForestProductStockPiled" class="control-label"></label>
+                <input asp-for="ForestProductStockPiled" class="form-control" />
+                <span asp-validation-for="ForestProductStockPiled" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BoardFeet" class="control-label"></label>
+                <input asp-for="BoardFeet" class="form-control" />
+                <span asp-validation-for="BoardFeet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CubicMeter" class="control-label"></label>
+                <input asp-for="CubicMeter" class="form-control" />
+                <span asp-validation-for="CubicMeter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Remarks" class="control-label"></label>
+                <input asp-for="Remarks" class="form-control" />
+                <span asp-validation-for="Remarks" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FilePath" class="control-label"></label>
+                <input asp-for="FilePath" class="form-control" />
+                <span asp-validation-for="FilePath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

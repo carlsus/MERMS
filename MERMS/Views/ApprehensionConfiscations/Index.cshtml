@@ -6,7 +6,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table table-bordered table-responsive">
+<table class="table table-bordered table-responsive table-hover">
     <thead>
         <tr>
             
@@ -115,7 +115,9 @@
 {
     <script>
         $(document).ready(function () {
-            $('.table').DataTable();
+            $('.table').DataTable({
+                lengthChange:false
+            });
         })
     </script>
 }

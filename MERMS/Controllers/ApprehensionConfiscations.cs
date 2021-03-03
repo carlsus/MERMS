@@ -10,9 +10,11 @@ using MERMS.Models;
 using MERMS.ViewModels;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MERMS.Controllers
 {
+    [Authorize]
     public class ApprehensionConfiscations : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -61,8 +63,7 @@ namespace MERMS.Controllers
         public async Task<IActionResult> Create(ApprehensionConfiscationViewModel model)
         {
             if (ModelState.IsValid)
-            {
-                
+            {                
                 string uniqueFileName = UploadedFile(model);
                 ApprehensionConfiscation data = new ApprehensionConfiscation { 
                     Jurisdiction=model.Jurisdiction,

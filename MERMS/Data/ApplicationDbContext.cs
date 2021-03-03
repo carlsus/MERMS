@@ -16,5 +16,7 @@ namespace MERMS.Data
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<ApprehensionConfiscation> ApprehensionConfiscations { get; set; }
+        public DbSet<Confiscation> Confiscation { get; set; }
+        public DbSet<DonatedConfiscated> DonatedConfiscateds { get; set; }
     }
 }

@@ -1,0 +1,132 @@
+﻿@model IEnumerable<MERMS.Models.Confiscation>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Jurisdiction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateFiled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocketCaseNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CaseTitleRespondent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NatureOfViolation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourtFiled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VehiclePlateNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KindSpecies)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstimatedValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ForestProductStockPiled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BoardFeet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CubicMeter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remarks)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FilePath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Jurisdiction)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateFiled)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DocketCaseNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CaseTitleRespondent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NatureOfViolation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourtFiled)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VehiclePlateNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KindSpecies)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstimatedValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ForestProductStockPiled)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BoardFeet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CubicMeter)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Remarks)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FilePath)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable({
+                lengthChange:false
+            });
+        })
+    </script>
+}

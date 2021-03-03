@@ -1,0 +1,77 @@
+﻿@model IEnumerable<MERMS.Models.DonatedConfiscated>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfDonation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DoneeRecipient)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfPieces)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VolumeBoardFeet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstimatedMarketValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Purpose)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfDonation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DoneeRecipient)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfPieces)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VolumeBoardFeet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstimatedMarketValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Purpose)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable({
+                lengthChange:false
+            });
+        })
+    </script>
+}
