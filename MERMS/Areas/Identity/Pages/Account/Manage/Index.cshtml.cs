@@ -23,7 +23,7 @@ namespace MERMS.Areas.Identity.Pages.Account.Manage
         }
 
         public string Username { get; set; }
-
+        public string Fullname { get; set; }
         [TempData]
         public string StatusMessage { get; set; }
 
@@ -41,12 +41,13 @@ namespace MERMS.Areas.Identity.Pages.Account.Manage
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
+            
             Username = userName;
 
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber
+               
             };
         }
 

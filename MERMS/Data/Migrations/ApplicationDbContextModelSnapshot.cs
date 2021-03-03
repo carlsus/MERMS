@@ -40,6 +40,9 @@ namespace MERMS.Data.Migrations
                     b.Property<double>("EstimatedValue")
                         .HasColumnType("REAL");
 
+                    b.Property<string>("FilePath")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Jurisdiction")
                         .HasColumnType("TEXT");
 

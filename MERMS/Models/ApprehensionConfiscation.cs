@@ -19,5 +19,6 @@ namespace MERMS.Models
         public string Status { get; set; }
         public double EstimatedValue { get; set; }
         public string Remarks { get; set; }
+        public string FilePath { get; set; }
     }
 }
