@@ -2,7 +2,6 @@
 
 @{ ViewData["Title"] = "Index"; }
 
-<h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -10,9 +9,7 @@
 <table class="table table-bordered table-responsive">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Jurisdiction)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.PlaceOfApprehension)
             </th>
@@ -62,9 +59,7 @@
         @foreach (var item in Model)
         {
 <tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Jurisdiction)
-    </td>
+   
     <td>
         @Html.DisplayFor(modelItem => item.PlaceOfApprehension)
     </td>

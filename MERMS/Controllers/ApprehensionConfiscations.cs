@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MERMS.Data;
 using MERMS.Models;
+using MERMS.ViewModels;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace MERMS.Controllers
 {
     public class ApprehensionConfiscations : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public ApprehensionConfiscations(ApplicationDbContext context)
+        private readonly IWebHostEnvironment webHostEnvironment;
+        public ApprehensionConfiscations(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            webHostEnvironment = hostEnvironment; 
         }
 
         // GET: ApprehensionConfiscations
@@ -54,15 +58,36 @@ namespace MERMS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Jurisdiction,PlaceOfApprehension,DateOfConfiscation,NumberOfPieces,Species,BoardFeet,CubicMeter,VehiclePlateNo,ParaphernaliaSerialNo,Offender,Address,Custodian,Status,EstimatedValue,Remarks")] ApprehensionConfiscation apprehensionConfiscation)
+        public async Task<IActionResult> Create(ApprehensionConfiscationViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(apprehensionConfiscation);
+                
+                string uniqueFileName = UploadedFile(model);
+                ApprehensionConfiscation data = new ApprehensionConfiscation { 
+                    Jurisdiction=model.Jurisdiction,
+                    PlaceOfApprehension = model.PlaceOfApprehension,
+                    DateOfConfiscation = model.DateOfConfiscation,
+                    NumberOfPieces = model.NumberOfPieces,
+                    Species = model.Species,
+                    BoardFeet = model.BoardFeet,
+                    CubicMeter = model.CubicMeter,
+                    VehiclePlateNo = model.VehiclePlateNo,
+                    ParaphernaliaSerialNo = model.ParaphernaliaSerialNo,
+                    Offender = model.Offender,
+                    Address = model.Address,
+                    Custodian = model.Custodian,
+                    Status = model.Status,
+                    EstimatedValue = model.EstimatedValue,
+                    Remarks = model.Remarks,
+                    FilePath = uniqueFileName,
+                };
+                
+                _context.Add(data);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(apprehensionConfiscation);
+            return View(model);
         }
 
         // GET: ApprehensionConfiscations/Edit/5
@@ -148,6 +173,23 @@ namespace MERMS.Controllers
         private bool ApprehensionConfiscationExists(int id)
         {
             return _context.ApprehensionConfiscations.Any(e => e.Id == id);
+        }
+
+        private string UploadedFile(ApprehensionConfiscationViewModel model)
+        {
+            string uniqueFileName = null;
+
+            if (model.FilePath != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "uploads");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.FilePath.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.FilePath.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
         }
     }
 }

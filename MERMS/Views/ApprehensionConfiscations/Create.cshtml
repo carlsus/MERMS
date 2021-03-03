@@ -1,4 +1,4 @@
-@model MERMS.Models.ApprehensionConfiscation
+@model MERMS.ViewModels.ApprehensionConfiscationViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Jurisdiction" class="control-label"></label>
@@ -81,6 +81,16 @@
                 <label asp-for="EstimatedValue" class="control-label"></label>
                 <input asp-for="EstimatedValue" class="form-control" />
                 <span asp-validation-for="EstimatedValue" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="FilePath" class="control-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="FilePath" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                    <span asp-validation-for="FilePath" class="text-danger"></span>
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Remarks" class="control-label"></label>
