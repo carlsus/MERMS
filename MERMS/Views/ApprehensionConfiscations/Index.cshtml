@@ -1,0 +1,126 @@
+@model IEnumerable<MERMS.Models.ApprehensionConfiscation>
+
+@{ ViewData["Title"] = "Index"; }
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-bordered table-responsive">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Jurisdiction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlaceOfApprehension)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfConfiscation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfPieces)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Species)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BoardFeet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CubicMeter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VehiclePlateNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParaphernaliaSerialNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Offender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Custodian)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstimatedValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Remarks)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Jurisdiction)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PlaceOfApprehension)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DateOfConfiscation)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NumberOfPieces)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Species)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.BoardFeet)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CubicMeter)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.VehiclePlateNo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ParaphernaliaSerialNo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Offender)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Address)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Custodian)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Status)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.EstimatedValue)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Remarks)
+    </td>
+    <td>
+        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+    </td>
+</tr>}
+    </tbody>
+</table>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        })
+    </script>
+}
