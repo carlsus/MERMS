@@ -40,9 +40,6 @@ namespace MERMS.Data.Migrations
                     b.Property<double>("EstimatedValue")
                         .HasColumnType("REAL");
 
-                    b.Property<string>("FilePath")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Jurisdiction")
                         .HasColumnType("TEXT");
 
@@ -164,6 +161,38 @@ namespace MERMS.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DonatedConfiscateds");
+                });
+
+            modelBuilder.Entity("MERMS.Models.MultiForestProtection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AttendanceSheet")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateOfMeeting")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LetterOfInvitation")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MinutesOfMeeting")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("NumberOfAttendees")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PhotoDocumentation")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("VenueOfMeeting")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MultiForestProtections");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

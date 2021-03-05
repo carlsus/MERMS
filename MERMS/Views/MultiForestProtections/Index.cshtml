@@ -1,0 +1,84 @@
+﻿@model IEnumerable<MERMS.Models.MultiForestProtection>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfMeeting)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VenueOfMeeting)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfAttendees)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LetterOfInvitation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AttendanceSheet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MinutesOfMeeting)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhotoDocumentation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfMeeting)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VenueOfMeeting)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfAttendees)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LetterOfInvitation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AttendanceSheet)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MinutesOfMeeting)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhotoDocumentation)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable({
+                lengthChange:false
+            });
+        })
+    </script>
+}

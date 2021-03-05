@@ -58,7 +58,8 @@ namespace MERMS.Data.Migrations
                     Custodian = table.Column<string>(nullable: true),
                     Status = table.Column<string>(nullable: true),
                     EstimatedValue = table.Column<double>(nullable: false),
-                    Remarks = table.Column<string>(nullable: true)
+                    Remarks = table.Column<string>(nullable: true),
+                    FilePath = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MERMS.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210303062139_Confiscation")]
-    partial class Confiscation
+    [Migration("20210303075657_MultiForest")]
+    partial class MultiForest
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,6 +75,129 @@ namespace MERMS.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ApprehensionConfiscations");
+                });
+
+            modelBuilder.Entity("MERMS.Models.Confiscation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("BoardFeet")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CaseTitleRespondent")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CourtFiled")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CubicMeter")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DateFiled")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DocketCaseNo")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("EstimatedValue")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ForestProductStockPiled")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Jurisdiction")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("KindSpecies")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NatureOfViolation")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("VehiclePlateNo")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Confiscation");
+                });
+
+            modelBuilder.Entity("MERMS.Models.DonatedConfiscated", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DateOfDonation")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DoneeRecipient")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("EstimatedMarketValue")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("NumberOfPieces")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Purpose")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SpeciesForm")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("VolumeBoardFeet")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DonatedConfiscateds");
+                });
+
+            modelBuilder.Entity("MERMS.Models.MultiForestProtection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AttendanceSheet")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateOfMeeting")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LetterOfInvitation")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MinutesOfMeeting")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("NumberOfAttendees")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PhotoDocumentation")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("VenueOfMeeting")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MultiForestProtections");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

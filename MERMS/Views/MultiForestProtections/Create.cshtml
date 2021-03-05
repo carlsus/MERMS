@@ -1,0 +1,63 @@
+﻿@model MERMS.Models.MultiForestProtection
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>MultiForestProtection</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DateOfMeeting" class="control-label"></label>
+                <input asp-for="DateOfMeeting" class="form-control" />
+                <span asp-validation-for="DateOfMeeting" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VenueOfMeeting" class="control-label"></label>
+                <input asp-for="VenueOfMeeting" class="form-control" />
+                <span asp-validation-for="VenueOfMeeting" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumberOfAttendees" class="control-label"></label>
+                <input asp-for="NumberOfAttendees" class="form-control" />
+                <span asp-validation-for="NumberOfAttendees" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LetterOfInvitation" class="control-label"></label>
+                <input asp-for="LetterOfInvitation" class="form-control" />
+                <span asp-validation-for="LetterOfInvitation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AttendanceSheet" class="control-label"></label>
+                <input asp-for="AttendanceSheet" class="form-control" />
+                <span asp-validation-for="AttendanceSheet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinutesOfMeeting" class="control-label"></label>
+                <input asp-for="MinutesOfMeeting" class="form-control" />
+                <span asp-validation-for="MinutesOfMeeting" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhotoDocumentation" class="control-label"></label>
+                <input asp-for="PhotoDocumentation" class="form-control" />
+                <span asp-validation-for="PhotoDocumentation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
