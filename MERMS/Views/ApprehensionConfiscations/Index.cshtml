@@ -2,25 +2,32 @@
 
 @{ ViewData["Title"] = "Index"; }
 
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item"><a href="#">Task</a></li>
 
+    <li class="breadcrumb-item active" aria-current="page">Apprehension & Confiscation</li>
+  </ol>
+</nav>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
 <table class="table table-bordered table-responsive table-hover">
     <thead>
         <tr>
             
             <th>
-                @Html.DisplayNameFor(model => model.PlaceOfApprehension)
+                Place of Apprehension
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfConfiscation)
+                Date of Confiscation
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NumberOfPieces)
+                No. of Pieces
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Species)
+                Spicies
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BoardFeet)
@@ -104,7 +111,7 @@
     </td>
     <td>
         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+        @* <a asp-action="Details" asp-route-id="@item.Id">Details</a> | *@
         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
     </td>
 </tr>}

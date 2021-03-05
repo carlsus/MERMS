@@ -1,103 +1,111 @@
-@model MERMS.Models.ApprehensionConfiscation
+@model MERMS.ViewModels.ApprehensionConfiscationViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>ApprehensionConfiscation</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+<form asp-action="Edit" enctype="multipart/form-data">
+<input type="hidden" asp-for="Id" />
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label asp-for="Jurisdiction" class="control-label"></label>
+            <select asp-for="Jurisdiction" class="form-control">
+                <option value="">Choose</option>
+                <option value="Diffun">Diffun</option>
+                <option value="Nagtipunan">Nagtipunan</option>
+            </select>
+            @*<input asp-for="Jurisdiction" class="form-control" />*@
+            <span asp-validation-for="Jurisdiction" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="PlaceOfApprehension" class="control-label"></label>
+            <input asp-for="PlaceOfApprehension" class="form-control" />
+            <span asp-validation-for="PlaceOfApprehension" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="DateOfConfiscation" class="control-label"></label>
+            <input asp-for="DateOfConfiscation" class="form-control" />
+            <span asp-validation-for="DateOfConfiscation" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="NumberOfPieces" class="control-label"></label>
+            <input asp-for="NumberOfPieces" class="form-control" />
+            <span asp-validation-for="NumberOfPieces" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="control-label">Volume of Lumber</label>
             <div class="form-group">
-                <label asp-for="Jurisdiction" class="control-label"></label>
-                <input asp-for="Jurisdiction" class="form-control" />
-                <span asp-validation-for="Jurisdiction" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PlaceOfApprehension" class="control-label"></label>
-                <input asp-for="PlaceOfApprehension" class="form-control" />
-                <span asp-validation-for="PlaceOfApprehension" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateOfConfiscation" class="control-label"></label>
-                <input asp-for="DateOfConfiscation" class="form-control" />
-                <span asp-validation-for="DateOfConfiscation" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumberOfPieces" class="control-label"></label>
-                <input asp-for="NumberOfPieces" class="form-control" />
-                <span asp-validation-for="NumberOfPieces" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Species" class="control-label"></label>
-                <input asp-for="Species" class="form-control" />
-                <span asp-validation-for="Species" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BoardFeet" class="control-label"></label>
-                <input asp-for="BoardFeet" class="form-control" />
+                <input asp-for="BoardFeet" class="form-control"  placeholder="Board Feet"/>
                 <span asp-validation-for="BoardFeet" class="text-danger"></span>
             </div>
+            
+        </div>
+        <div class="form-group col-md-2">
+            <label class="control-label">&nbsp;</label>
             <div class="form-group">
-                <label asp-for="CubicMeter" class="control-label"></label>
-                <input asp-for="CubicMeter" class="form-control" />
+                <input asp-for="CubicMeter" class="form-control"  placeholder="Cubic Meter"/>
                 <span asp-validation-for="CubicMeter" class="text-danger"></span>
             </div>
+            
+        </div>
+        <div class="form-group col-md-4">
+            <label class="control-label">Type of Vehicle / Paraphernalia Use </label>
             <div class="form-group">
-                <label asp-for="VehiclePlateNo" class="control-label"></label>
-                <input asp-for="VehiclePlateNo" class="form-control" />
+                <input asp-for="VehiclePlateNo" class="form-control"  placeholder="Vehicle and Plate Number"/>
                 <span asp-validation-for="VehiclePlateNo" class="text-danger"></span>
             </div>
+            
+        </div>
+        <div class="form-group col-md-4">
+            <label class="control-label">&nbsp;</label>
             <div class="form-group">
-                <label asp-for="ParaphernaliaSerialNo" class="control-label"></label>
-                <input asp-for="ParaphernaliaSerialNo" class="form-control" />
+                <input asp-for="ParaphernaliaSerialNo" class="form-control"  placeholder="Paraphernalia and Serial Number:"/>
                 <span asp-validation-for="ParaphernaliaSerialNo" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Offender" class="control-label"></label>
-                <input asp-for="Offender" class="form-control" />
-                <span asp-validation-for="Offender" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Custodian" class="control-label"></label>
-                <input asp-for="Custodian" class="form-control" />
-                <span asp-validation-for="Custodian" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EstimatedValue" class="control-label"></label>
-                <input asp-for="EstimatedValue" class="form-control" />
-                <span asp-validation-for="EstimatedValue" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Remarks" class="control-label"></label>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Offender" class="control-label"></label>
+            <input asp-for="Offender" class="form-control" />
+            <span asp-validation-for="Offender" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-8">
+            <label asp-for="Address" class="control-label"></label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Custodian" class="control-label"></label>
+            <input asp-for="Custodian" class="form-control" />
+            <span asp-validation-for="Custodian" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="Status" class="control-label"></label>
+            <input asp-for="Status" class="form-control" />
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="EstimatedValue" class="control-label"></label>
+            <input asp-for="EstimatedValue" class="form-control" />
+            <span asp-validation-for="EstimatedValue" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label class="control-label">Attach PDF</label>
+                <div class="custom-file">
+                    <input asp-for="FilePath" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <span asp-validation-for="FilePath" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-12">
+            <label asp-for="Remarks" class="control-label"></label>
                 <input asp-for="Remarks" class="form-control" />
                 <span asp-validation-for="Remarks" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+    <div class="form-group col-md-12">
+        <input type="submit" value="Save" class="btn btn-primary float-right" />
     </div>
-</div>
+</form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

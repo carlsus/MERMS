@@ -10,11 +10,13 @@ namespace MERMS.ViewModels
     public class ApprehensionConfiscationViewModel
     {
         public int Id { get; set; }
+        [Required]
         [Display(Name ="CENRO Jurisdiction")]
         public string Jurisdiction { get; set; }
         [Display(Name = "Place of Apprehension")]
         public string PlaceOfApprehension { get; set; }
         [Display(Name = "Date of Confiscaton")]
+        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? DateOfConfiscation { get; set; }

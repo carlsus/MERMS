@@ -4,11 +4,20 @@
     ViewData["Title"] = "Create";
 }
 
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item"><a href="#">Task</a></li>
+    <li class="breadcrumb-item"><a href="#">Apprehension & Confiscation</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Create New</li>
+  </ol>
+</nav>
 <form asp-action="Create" enctype="multipart/form-data">
     <div class="form-row">
         <div class="form-group col-md-2">
             <label asp-for="Jurisdiction" class="control-label"></label>
             <select asp-for="Jurisdiction" class="form-control">
+                <option value="">Choose</option>
                 <option value="Diffun">Diffun</option>
                 <option value="Nagtipunan">Nagtipunan</option>
             </select>
@@ -30,139 +39,89 @@
             <input asp-for="NumberOfPieces" class="form-control" />
             <span asp-validation-for="NumberOfPieces" class="text-danger"></span>
         </div>
-        <div class="form-group col-md-1">
-            <label class="control-label">Volume of Lumber</label>
-            <input asp-for="BoardFeet" class="form-control"  placeholder="Board Feet"/>
-            <span asp-validation-for="NumberOfPieces" class="text-danger"></span>
-        </div>
-        <div class="form-group col-md-1">
-            <input asp-for="CubicMeter" class="form-control"  placeholder="Cubic Meter"/>
-            <span asp-validation-for="NumberOfPieces" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputAddress">Address</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-    </div>
-    <div class="form-group">
-        <label for="inputAddress2">Address 2</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="inputCity">City</label>
-            <input type="text" class="form-control" id="inputCity">
-        </div>
-        <div class="form-group col-md-4">
-            <label for="inputState">State</label>
-            <select id="inputState" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
-            </select>
-        </div>
         <div class="form-group col-md-2">
-            <label for="inputZip">Zip</label>
-            <input type="text" class="form-control" id="inputZip">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck">
-            <label class="form-check-label" for="gridCheck">
-                Check me out
-            </label>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Sign in</button>
-</form>
-
-
-<div class="row">
-    <div class="form-row">
-        <form asp-action="Create" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-          
-           
+            <label class="control-label">Volume of Lumber</label>
             <div class="form-group">
-                
-            </div>
-            <div class="form-group">
-                <label asp-for="Species" class="control-label"></label>
-                <input asp-for="Species" class="form-control" />
-                <span asp-validation-for="Species" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BoardFeet" class="control-label"></label>
-                <input asp-for="BoardFeet" class="form-control" />
+                <input asp-for="BoardFeet" class="form-control"  placeholder="Board Feet"/>
                 <span asp-validation-for="BoardFeet" class="text-danger"></span>
             </div>
+            
+        </div>
+        <div class="form-group col-md-2">
+            <label class="control-label">&nbsp;</label>
             <div class="form-group">
-                <label asp-for="CubicMeter" class="control-label"></label>
-                <input asp-for="CubicMeter" class="form-control" />
+                <input asp-for="CubicMeter" class="form-control"  placeholder="Cubic Meter"/>
                 <span asp-validation-for="CubicMeter" class="text-danger"></span>
             </div>
+            
+        </div>
+        <div class="form-group col-md-4">
+            <label class="control-label">Type of Vehicle / Paraphernalia Use </label>
             <div class="form-group">
-                <label asp-for="VehiclePlateNo" class="control-label"></label>
-                <input asp-for="VehiclePlateNo" class="form-control" />
+                <input asp-for="VehiclePlateNo" class="form-control"  placeholder="Vehicle and Plate Number"/>
                 <span asp-validation-for="VehiclePlateNo" class="text-danger"></span>
             </div>
+            
+        </div>
+        <div class="form-group col-md-4">
+            <label class="control-label">&nbsp;</label>
             <div class="form-group">
-                <label asp-for="ParaphernaliaSerialNo" class="control-label"></label>
-                <input asp-for="ParaphernaliaSerialNo" class="form-control" />
+                <input asp-for="ParaphernaliaSerialNo" class="form-control"  placeholder="Paraphernalia and Serial Number:"/>
                 <span asp-validation-for="ParaphernaliaSerialNo" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Offender" class="control-label"></label>
-                <input asp-for="Offender" class="form-control" />
-                <span asp-validation-for="Offender" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Custodian" class="control-label"></label>
-                <input asp-for="Custodian" class="form-control" />
-                <span asp-validation-for="Custodian" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EstimatedValue" class="control-label"></label>
-                <input asp-for="EstimatedValue" class="form-control" />
-                <span asp-validation-for="EstimatedValue" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="FilePath" class="control-label"></label>
-                <div class="custom-file">
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Offender" class="control-label"></label>
+            <input asp-for="Offender" class="form-control" />
+            <span asp-validation-for="Offender" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-8">
+            <label asp-for="Address" class="control-label"></label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="Custodian" class="control-label"></label>
+            <input asp-for="Custodian" class="form-control" />
+            <span asp-validation-for="Custodian" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="Status" class="control-label"></label>
+            <input asp-for="Status" class="form-control" />
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="EstimatedValue" class="control-label"></label>
+            <input asp-for="EstimatedValue" class="form-control" />
+            <span asp-validation-for="EstimatedValue" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-4">
+            <label class="control-label">Attach PDF</label>
+                 <div class="custom-file">
                     <input asp-for="FilePath" class="custom-file-input" id="customFile">
                     <label class="custom-file-label" for="customFile">Choose file</label>
                 </div>
-                <span asp-validation-for="FilePath" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Remarks" class="control-label"></label>
+                <span asp-validation-for="FilePath" class="text-danger"></span> 
+        </div>
+        <div class="form-group col-md-12">
+            <label asp-for="Remarks" class="control-label"></label>
                 <input asp-for="Remarks" class="form-control" />
                 <span asp-validation-for="Remarks" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+    <div class="form-group col-md-12">
+        <input type="submit" value="Save" class="btn btn-primary float-right" />
     </div>
-</div>
+</form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+    </script>
 }
