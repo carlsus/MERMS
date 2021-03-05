@@ -104,6 +104,7 @@ namespace MERMS.Controllers
             {
                 return NotFound();
             }
+            ApprehensionConfiscationViewModel data=apprehensionConfiscation;
             return View(apprehensionConfiscation);
         }
 
@@ -112,9 +113,9 @@ namespace MERMS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Jurisdiction,PlaceOfApprehension,DateOfConfiscation,NumberOfPieces,Species,BoardFeet,CubicMeter,VehiclePlateNo,ParaphernaliaSerialNo,Offender,Address,Custodian,Status,EstimatedValue,Remarks")] ApprehensionConfiscation apprehensionConfiscation)
+        public async Task<IActionResult> Edit(int id, ApprehensionConfiscationViewModel model)
         {
-            if (id != apprehensionConfiscation.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
@@ -123,12 +124,12 @@ namespace MERMS.Controllers
             {
                 try
                 {
-                    _context.Update(apprehensionConfiscation);
+                    _context.Update(model);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ApprehensionConfiscationExists(apprehensionConfiscation.Id))
+                    if (!ApprehensionConfiscationExists(model.Id))
                     {
                         return NotFound();
                     }
@@ -139,7 +140,7 @@ namespace MERMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(apprehensionConfiscation);
+            return View(model);
         }
 
         // GET: ApprehensionConfiscations/Delete/5
