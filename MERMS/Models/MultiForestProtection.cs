@@ -8,6 +8,7 @@ namespace MERMS.Models
     public class MultiForestProtection
     {
         public int Id { get; set; }
+        public string TrackingNo { get; set; }
         public DateTime DateOfMeeting { get; set; }
         public string VenueOfMeeting { get; set; }
         public int NumberOfAttendees { get; set; }

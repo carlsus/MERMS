@@ -1,59 +1,76 @@
-﻿@model MERMS.Models.DonatedConfiscated
+﻿@model MERMS.ViewModels.DonatedConfiscatedViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<form asp-action="Edit" enctype="multipart/form-data">
+    <div class="form-row">
+        <input asp-for="Id" type="hidden" />
+        <div class="form-group col-md-2">
+            <label asp-for="TrackingNo" class="control-label"></label>
+            <input asp-for="TrackingNo" class="form-control" />
+            <span asp-validation-for="TrackingNo" class="text-danger"></span>
+        </div>
 
-<h4>DonatedConfiscated</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="DateOfDonation" class="control-label"></label>
-                <input asp-for="DateOfDonation" class="form-control" />
-                <span asp-validation-for="DateOfDonation" class="text-danger"></span>
+        <div class="form-group col-md-2">
+            <label asp-for="DateOfDonation" class="control-label"></label>
+            <input asp-for="DateOfDonation" class="form-control" />
+            <span asp-validation-for="DateOfDonation" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-3">
+            <label asp-for="DoneeRecipient" class="control-label"></label>
+            <input asp-for="DoneeRecipient" class="form-control" />
+            <span asp-validation-for="DoneeRecipient" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label asp-for="SpeciesForm" class="control-label"></label>
+            <input asp-for="SpeciesForm" class="form-control" />
+            <span asp-validation-for="SpeciesForm" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="NumberOfPieces" class="control-label"></label>
+            <input asp-for="NumberOfPieces" class="form-control" />
+            <span asp-validation-for="NumberOfPieces" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="VolumeBoardFeet" class="control-label"></label>
+            <input asp-for="VolumeBoardFeet" class="form-control" />
+            <span asp-validation-for="VolumeBoardFeet" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="EstimatedMarketValue" class="control-label"></label>
+            <input asp-for="EstimatedMarketValue" class="form-control" />
+            <span asp-validation-for="EstimatedMarketValue" class="text-danger"></span>
+        </div>
+
+        <div class="form-group col-md-2">
+            <label class="control-label">Attach PDF</label>
+            <div class="custom-file">
+                <input asp-for="FilePath" class="custom-file-input" id="customFile">
+                <label class="custom-file-label" for="customFile">Choose file</label>
             </div>
-            <div class="form-group">
-                <label asp-for="DoneeRecipient" class="control-label"></label>
-                <input asp-for="DoneeRecipient" class="form-control" />
-                <span asp-validation-for="DoneeRecipient" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumberOfPieces" class="control-label"></label>
-                <input asp-for="NumberOfPieces" class="form-control" />
-                <span asp-validation-for="NumberOfPieces" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VolumeBoardFeet" class="control-label"></label>
-                <input asp-for="VolumeBoardFeet" class="form-control" />
-                <span asp-validation-for="VolumeBoardFeet" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EstimatedMarketValue" class="control-label"></label>
-                <input asp-for="EstimatedMarketValue" class="form-control" />
-                <span asp-validation-for="EstimatedMarketValue" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Purpose" class="control-label"></label>
-                <input asp-for="Purpose" class="form-control" />
-                <span asp-validation-for="Purpose" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+            <span asp-validation-for="FilePath" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="Purpose" class="control-label"></label>
+            <textarea asp-for="Purpose" class="form-control" rows="2" ></textarea>
+            <span asp-validation-for="Purpose" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-12">
+            <input type="submit" value="Save" class="btn btn-primary float-right" />
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+</form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
 }

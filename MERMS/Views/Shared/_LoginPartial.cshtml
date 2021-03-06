@@ -3,47 +3,60 @@
 @inject UserManager<IdentityUser> UserManager
 @if (SignInManager.IsSignedIn(User))
 {
-<div class="navbar-collapse collapse order-1 order-md-0 dual-collapse2">
-        <ul class="navbar-nav mr-auto">
+    <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                    Task
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" asp-controller="ApprehensionConfiscations" asp-action="Index">Apprehension &amp; Confiscation </a>
-                    <a class="dropdown-item" asp-controller="Confiscations" asp-action="Index">Confiscation with Case Filed in Court</a>
-                    <a class="dropdown-item" asp-controller="DonatedConfiscateds" asp-action="Index">Donated Confiscated CHW</a>
-                    <a class="dropdown-item" asp-controller="ApprehensionConfiscations" asp-action="Index">Price Monitoring Report</a>
-                    <a class="dropdown-item" asp-controller="MultiForestProtections" asp-action="Index">Multi-Forest Protection Comimittee Meetings</a>
-                    
-                </div>
+                <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Task &amp; Reports</a>
+                <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                    <li>
+                        <a class="dropdown-item" asp-controller="ApprehensionConfiscations" asp-action="Index">Apprehension &amp; Confiscation </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-controller="Confiscations" asp-action="Index">Confiscation with Case Filed in Court</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-controller="DonatedConfiscateds" asp-action="Index">Donated Confiscated Common Hardwood Lumber</a>
+                    </li>
+
+                    <li class="dropdown-submenu dropdown-hover">
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Price Monitoring Report of Wood Products</a>
+                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                           
+
+                           
+                            <li><a href="#" class="dropdown-item">CENRO Report</a></li>
+                            <li><a href="#" class="dropdown-item">PENRO Report</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" asp-controller="MultiForestProtections" asp-action="Index">Multi-Forest Protection Comimittee Meetings</a>
+                    </li>
+                </ul>
             </li>
         </ul>
-</div>
-<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    
-    <ul class="navbar-nav">
 
-
-        <li class="nav-item">
-            <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
-        </li>
-        <li class="nav-item">
-            <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>
-        </li>
-
-    </ul>
-</div>
-}
-else
-{
-    @*<li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>*@
+        
+    </div> <!-- Right navbar links -->
+<ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
     </li>
-}
+    <li class="nav-item">
+        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+        </form>
+    </li>
+</ul>
+    }
+    else
+    {
+        @*<li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            </li>*@
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
 

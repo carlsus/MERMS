@@ -68,6 +68,7 @@ namespace MERMS.Controllers
                 string uniqueFileName = UploadedFile(model);
                 Confiscation data = new Confiscation
                 {
+                    TrackingNo = model.TrackingNo,
                     Jurisdiction = model.Jurisdiction,
                     DateFiled=model.DateFiled,
                     DocketCaseNo=model.DocketCaseNo,
@@ -99,12 +100,31 @@ namespace MERMS.Controllers
                 return NotFound();
             }
 
-            var confiscation = await _context.Confiscation.FindAsync(id);
-            if (confiscation == null)
+            var model = await _context.Confiscation.FindAsync(id);
+            ConfiscationViewModel vm = new ConfiscationViewModel
+            {
+                TrackingNo = model.TrackingNo,
+                Jurisdiction = model.Jurisdiction,
+                DateFiled = model.DateFiled,
+                DocketCaseNo = model.DocketCaseNo,
+                CaseTitleRespondent = model.CaseTitleRespondent,
+                NatureOfViolation = model.NatureOfViolation,
+                CourtFiled = model.CourtFiled,
+                VehiclePlateNo = model.VehiclePlateNo,
+                KindSpecies = model.KindSpecies,
+                EstimatedValue = model.EstimatedValue,
+                ForestProductStockPiled = model.ForestProductStockPiled,
+                BoardFeet = model.BoardFeet,
+                CubicMeter = model.CubicMeter,
+                Status = model.Status,
+                Remarks = model.Remarks,
+                
+            };
+            if (model == null)
             {
                 return NotFound();
             }
-            return View(confiscation);
+            return View(vm);
         }
 
         // POST: Confiscations/Edit/5
@@ -112,9 +132,9 @@ namespace MERMS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Jurisdiction,DateFiled,DocketCaseNo,CaseTitleRespondent,NatureOfViolation,CourtFiled,VehiclePlateNo,KindSpecies,EstimatedValue,ForestProductStockPiled,BoardFeet,CubicMeter,Status,Remarks,FilePath")] Confiscation confiscation)
+        public async Task<IActionResult> Edit(int id, ConfiscationViewModel model)
         {
-            if (id != confiscation.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
@@ -123,12 +143,34 @@ namespace MERMS.Controllers
             {
                 try
                 {
-                    _context.Update(confiscation);
+                    string uniqueFileName = UploadedFile(model);
+                    Confiscation data = new Confiscation
+                    {
+                        Id = model.Id,
+                        TrackingNo = model.TrackingNo,
+                        Jurisdiction = model.Jurisdiction,
+                        DateFiled = model.DateFiled,
+                        DocketCaseNo = model.DocketCaseNo,
+                        CaseTitleRespondent = model.CaseTitleRespondent,
+                        NatureOfViolation = model.NatureOfViolation,
+                        CourtFiled = model.CourtFiled,
+                        VehiclePlateNo = model.VehiclePlateNo,
+                        KindSpecies = model.KindSpecies,
+                        EstimatedValue = model.EstimatedValue,
+                        ForestProductStockPiled = model.ForestProductStockPiled,
+                        BoardFeet = model.BoardFeet,
+                        CubicMeter = model.CubicMeter,
+                        Status = model.Status,
+                        Remarks = model.Remarks,
+                        FilePath = uniqueFileName,
+                    };
+
+                    _context.Update(data);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ConfiscationExists(confiscation.Id))
+                    if (!ConfiscationExists(model.Id))
                     {
                         return NotFound();
                     }
@@ -139,7 +181,7 @@ namespace MERMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(confiscation);
+            return View(model);
         }
 
         // GET: Confiscations/Delete/5

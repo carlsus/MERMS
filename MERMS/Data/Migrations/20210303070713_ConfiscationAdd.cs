@@ -13,6 +13,7 @@ namespace MERMS.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    TrackingNo = table.Column<string>(nullable: true),
                     Jurisdiction = table.Column<string>(nullable: true),
                     DateFiled = table.Column<DateTime>(nullable: true),
                     DocketCaseNo = table.Column<string>(nullable: true),
@@ -21,7 +22,7 @@ namespace MERMS.Data.Migrations
                     CourtFiled = table.Column<string>(nullable: true),
                     VehiclePlateNo = table.Column<string>(nullable: true),
                     KindSpecies = table.Column<string>(nullable: true),
-                    EstimatedValue = table.Column<double>(nullable: false),
+                    EstimatedValue = table.Column<string>(nullable: true),
                     ForestProductStockPiled = table.Column<string>(nullable: true),
                     BoardFeet = table.Column<string>(nullable: true),
                     CubicMeter = table.Column<string>(nullable: true),

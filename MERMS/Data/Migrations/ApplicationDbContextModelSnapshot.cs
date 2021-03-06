@@ -37,8 +37,11 @@ namespace MERMS.Data.Migrations
                     b.Property<DateTime?>("DateOfConfiscation")
                         .HasColumnType("TEXT");
 
-                    b.Property<double>("EstimatedValue")
-                        .HasColumnType("REAL");
+                    b.Property<string>("EstimatedValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FilePath")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Jurisdiction")
                         .HasColumnType("TEXT");
@@ -62,6 +65,9 @@ namespace MERMS.Data.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Status")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TrackingNo")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("VehiclePlateNo")

@@ -4,43 +4,93 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Monitoring and Enforcement Records Management System</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+
+    <link href="~/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="~/css/adminlte.min.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-responsive/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/plugins/datatables-buttons/css/buttons.bootstrap4.min.css" rel="stylesheet" />
 
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="~/img/logo.png" width="30" height="30" alt="logo">
-                    DENR
+<body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+            <div class="container">
+                <a href="../../index3.html" class="navbar-brand">
+                    <img src="~/img/logo.png" alt="DENR Logo" class="brand-image img-circle">
+                    <span class="brand-text font-weight-light">DENR</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+
+                <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <partial name="_LoginPartial" />
             </div>
         </nav>
-    </header>
-    <div class="container-fluid">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        <!-- /.navbar -->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0 text-dark"> @ViewData["Title"]</h1>
+                        </div><!-- /.col -->
+                        <!--<div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">Layout</a></li>
+                                <li class="breadcrumb-item active">Top Navigation</li>
+                            </ol>
+                        </div>--><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+            <!-- Main content -->
+            <div class="content">
+                <div class="container">
+                    <div class="row-fluid">
+                        @RenderBody()
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content -->
+        </div>
+
+        <!-- Main Footer -->
+        <!--<footer class="main-footer">-->
+            <!-- To the right -->
+            <!--<div class="float-right d-none d-sm-inline">
+                Anything you want
+            </div>-->
+            <!-- Default to the left -->
+            <!--<strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+        </footer>-->
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - Monitoring and Enforcement Records Management System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/plugins/jquery/jquery.min.js"></script>
+
+    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+
+    <script src="~/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/plugins/jszip/jszip.min.js"></script>
+    <script src="~/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="~/js/adminlte.min.js"></script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>

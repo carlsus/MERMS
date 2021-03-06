@@ -10,6 +10,7 @@ namespace MERMS.ViewModels
     public class ApprehensionConfiscationViewModel
     {
         public int Id { get; set; }
+        public string TrackingNo { get; set; }
         [Required]
         [Display(Name ="CENRO Jurisdiction")]
         public string Jurisdiction { get; set; }
@@ -21,7 +22,6 @@ namespace MERMS.ViewModels
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? DateOfConfiscation { get; set; }
         [Display(Name = "Number of Pieces")]
-        public int NumberOfPieces { get; set; }
         public string Species { get; set; }
         [Display(Name = "Board Feet")]
         public string BoardFeet { get; set; }
@@ -36,7 +36,7 @@ namespace MERMS.ViewModels
         public string Custodian { get; set; }
         public string Status { get; set; }
         [Display(Name = "Estimated Value")]
-        public double EstimatedValue { get; set; }
+        public string EstimatedValue { get; set; }
         public string Remarks { get; set; }
         public IFormFile FilePath { get; set; }
     }

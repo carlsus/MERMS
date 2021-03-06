@@ -8,6 +8,7 @@ namespace MERMS.Models
     public class Confiscation
     {
         public int Id { get; set; }
+        public string TrackingNo { get; set; }
         public string Jurisdiction { get; set; }
         public DateTime? DateFiled { get; set; }
         public string DocketCaseNo { get; set; }
@@ -17,7 +18,7 @@ namespace MERMS.Models
         public string VehiclePlateNo { get; set; }
         public string KindSpecies { get; set; }
        
-        public double EstimatedValue { get; set; }
+        public string EstimatedValue { get; set; }
         public string ForestProductStockPiled { get; set; }
         public string BoardFeet { get; set; }
         public string CubicMeter { get; set; }

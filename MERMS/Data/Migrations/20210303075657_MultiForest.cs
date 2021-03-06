@@ -13,6 +13,7 @@ namespace MERMS.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    TrackingNo = table.Column<string>(nullable: true),
                     DateOfMeeting = table.Column<DateTime>(nullable: false),
                     VenueOfMeeting = table.Column<string>(nullable: true),
                     NumberOfAttendees = table.Column<int>(nullable: false),

@@ -67,6 +67,7 @@ namespace MERMS.Controllers
                 string uniqueFileName = UploadedFile(model);
                 DonatedConfiscated data = new DonatedConfiscated
                 {
+                    TrackingNo=model.TrackingNo,
                     DateOfDonation=model.DateOfDonation,
                     DoneeRecipient=model.DoneeRecipient,
                     SpeciesForm=model.SpeciesForm,
@@ -91,12 +92,24 @@ namespace MERMS.Controllers
                 return NotFound();
             }
 
-            var donatedConfiscated = await _context.DonatedConfiscateds.FindAsync(id);
-            if (donatedConfiscated == null)
+            var model = await _context.DonatedConfiscateds.FindAsync(id);
+            DonatedConfiscatedViewModel vm = new DonatedConfiscatedViewModel
+            {
+                TrackingNo = model.TrackingNo,
+                DateOfDonation = model.DateOfDonation,
+                DoneeRecipient = model.DoneeRecipient,
+                SpeciesForm = model.SpeciesForm,
+                NumberOfPieces = model.NumberOfPieces,
+                VolumeBoardFeet = model.VolumeBoardFeet,
+                EstimatedMarketValue = model.EstimatedMarketValue,
+                Purpose = model.Purpose,
+
+            };
+            if (model == null)
             {
                 return NotFound();
             }
-            return View(donatedConfiscated);
+            return View(vm);
         }
 
         // POST: DonatedConfiscateds/Edit/5
@@ -104,9 +117,9 @@ namespace MERMS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DateOfDonation,DoneeRecipient,NumberOfPieces,VolumeBoardFeet,EstimatedMarketValue,Purpose")] DonatedConfiscated donatedConfiscated)
+        public async Task<IActionResult> Edit(int id, DonatedConfiscatedViewModel model)
         {
-            if (id != donatedConfiscated.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
@@ -115,12 +128,26 @@ namespace MERMS.Controllers
             {
                 try
                 {
-                    _context.Update(donatedConfiscated);
+                    string uniqueFileName = UploadedFile(model);
+                    DonatedConfiscated data = new DonatedConfiscated
+                    {
+                        Id = model.Id,
+                        TrackingNo = model.TrackingNo,
+                        DateOfDonation = model.DateOfDonation,
+                        DoneeRecipient = model.DoneeRecipient,
+                        SpeciesForm = model.SpeciesForm,
+                        NumberOfPieces = model.NumberOfPieces,
+                        VolumeBoardFeet = model.VolumeBoardFeet,
+                        EstimatedMarketValue = model.EstimatedMarketValue,
+                        Purpose=model.Purpose,
+                        FilePath = uniqueFileName,
+                    };
+                    _context.Update(data);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DonatedConfiscatedExists(donatedConfiscated.Id))
+                    if (!DonatedConfiscatedExists(model.Id))
                     {
                         return NotFound();
                     }
@@ -131,7 +158,7 @@ namespace MERMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(donatedConfiscated);
+            return View(model);
         }
 
         // GET: DonatedConfiscateds/Delete/5

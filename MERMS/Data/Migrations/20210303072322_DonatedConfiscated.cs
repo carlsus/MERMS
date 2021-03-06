@@ -13,12 +13,15 @@ namespace MERMS.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    TrackingNo = table.Column<string>(nullable: true),
                     DateOfDonation = table.Column<DateTime>(nullable: false),
                     DoneeRecipient = table.Column<string>(nullable: true),
                     NumberOfPieces = table.Column<int>(nullable: false),
                     VolumeBoardFeet = table.Column<string>(nullable: true),
-                    EstimatedMarketValue = table.Column<double>(nullable: false),
-                    Purpose = table.Column<string>(nullable: true)
+                    EstimatedMarketValue = table.Column<string>(nullable: true),
+                    Purpose = table.Column<string>(nullable: true),
+                    SpeciesForm = table.Column<string>(nullable: true),
+                    FilePath = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

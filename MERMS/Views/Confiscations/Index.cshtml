@@ -1,52 +1,51 @@
 ﻿@model IEnumerable<MERMS.Models.Confiscation>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Confiscation with Case Filed in Court";
 }
 
-<h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
-<table class="table table-bordered table-responsive table-hover">
+<table class="table table-bordered table-responsive table-hover" id="example">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Jurisdiction)
+                Tracking No
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateFiled)
+                Date Filed
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DocketCaseNo)
+                Docket/Case Number
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CaseTitleRespondent)
+                Case Title/Respondent
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NatureOfViolation)
+               Nature of Violation
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CourtFiled)
+                Court where Case Filed
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VehiclePlateNo)
+                Plate Number of Vehicle
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.KindSpecies)
+                Kind/Species of Forest Products
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EstimatedValue)
+                Estimated Value
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ForestProductStockPiled)
+                Forest Product Stockpiled
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BoardFeet)
+                Board Feet
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CubicMeter)
+                Cubic Meter
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
@@ -54,9 +53,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Remarks)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FilePath)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -65,7 +62,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Jurisdiction)
+                    @Html.DisplayFor(modelItem => item.TrackingNo)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DateFiled)
@@ -106,12 +103,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Remarks)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FilePath)
-                </td>
+               
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
@@ -122,11 +116,27 @@
 
 @section Scripts
 {
+
     <script>
         $(document).ready(function () {
-            $('.table').DataTable({
-                lengthChange:false
-            });
+            $("#example").DataTable({
+                responsive: true,
+                lengthChange: false,
+                autoWidth: false,
+                buttons: [
+                    "copy", "excel", ,
+                    {
+
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL'
+                    }
+
+                ]
+            }).buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
+
+
         })
     </script>
+
 }

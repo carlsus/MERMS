@@ -4,16 +4,13 @@
     ViewData["Title"] = "Create";
 }
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#">Home</a></li>
-    <li class="breadcrumb-item"><a href="#">Task</a></li>
-    <li class="breadcrumb-item"><a href="#">Apprehension & Confiscation</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Create New</li>
-  </ol>
-</nav>
 <form asp-action="Create" enctype="multipart/form-data">
     <div class="form-row">
+        <div class="form-group col-md-2">
+            <label asp-for="TrackingNo" class="control-label"></label>
+            <input asp-for="TrackingNo" class="form-control" />
+            <span asp-validation-for="TrackingNo" class="text-danger"></span>
+        </div>
         <div class="form-group col-md-2">
             <label asp-for="Jurisdiction" class="control-label"></label>
             <select asp-for="Jurisdiction" class="form-control">
@@ -34,39 +31,35 @@
             <input asp-for="DateOfConfiscation" class="form-control" />
             <span asp-validation-for="DateOfConfiscation" class="text-danger"></span>
         </div>
-        <div class="form-group col-md-2">
-            <label asp-for="NumberOfPieces" class="control-label"></label>
-            <input asp-for="NumberOfPieces" class="form-control" />
-            <span asp-validation-for="NumberOfPieces" class="text-danger"></span>
-        </div>
+
         <div class="form-group col-md-2">
             <label class="control-label">Volume of Lumber</label>
             <div class="form-group">
-                <input asp-for="BoardFeet" class="form-control"  placeholder="Board Feet"/>
+                <input asp-for="BoardFeet" class="form-control" placeholder="Board Feet" />
                 <span asp-validation-for="BoardFeet" class="text-danger"></span>
             </div>
-            
+
         </div>
         <div class="form-group col-md-2">
             <label class="control-label">&nbsp;</label>
             <div class="form-group">
-                <input asp-for="CubicMeter" class="form-control"  placeholder="Cubic Meter"/>
+                <input asp-for="CubicMeter" class="form-control" placeholder="Cubic Meter" />
                 <span asp-validation-for="CubicMeter" class="text-danger"></span>
             </div>
-            
+
         </div>
         <div class="form-group col-md-4">
             <label class="control-label">Type of Vehicle / Paraphernalia Use </label>
             <div class="form-group">
-                <input asp-for="VehiclePlateNo" class="form-control"  placeholder="Vehicle and Plate Number"/>
+                <input asp-for="VehiclePlateNo" class="form-control" placeholder="Vehicle and Plate Number" />
                 <span asp-validation-for="VehiclePlateNo" class="text-danger"></span>
             </div>
-            
+
         </div>
         <div class="form-group col-md-4">
             <label class="control-label">&nbsp;</label>
             <div class="form-group">
-                <input asp-for="ParaphernaliaSerialNo" class="form-control"  placeholder="Paraphernalia and Serial Number:"/>
+                <input asp-for="ParaphernaliaSerialNo" class="form-control" placeholder="Paraphernalia and Serial Number:" />
                 <span asp-validation-for="ParaphernaliaSerialNo" class="text-danger"></span>
             </div>
         </div>
@@ -97,19 +90,20 @@
         </div>
         <div class="form-group col-md-4">
             <label class="control-label">Attach PDF</label>
-                 <div class="custom-file">
-                    <input asp-for="FilePath" class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" for="customFile">Choose file</label>
-                </div>
-                <span asp-validation-for="FilePath" class="text-danger"></span> 
+            <div class="custom-file">
+                <input asp-for="FilePath" class="custom-file-input" id="customFile">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+            <span asp-validation-for="FilePath" class="text-danger"></span>
         </div>
         <div class="form-group col-md-12">
             <label asp-for="Remarks" class="control-label"></label>
-                <input asp-for="Remarks" class="form-control" />
-                <span asp-validation-for="Remarks" class="text-danger"></span>
+            <input asp-for="Remarks" class="form-control" />
+            <span asp-validation-for="Remarks" class="text-danger"></span>
         </div>
-    <div class="form-group col-md-12">
-        <input type="submit" value="Save" class="btn btn-primary float-right" />
+        <div class="form-group col-md-12">
+            <input type="submit" value="Save" class="btn btn-primary float-right" />
+        </div>
     </div>
 </form>
 
@@ -121,7 +115,7 @@
     <script>
         $(".custom-file-input").on("change", function() {
   var fileName = $(this).val().split("\\").pop();
-  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-});
-    </script>
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+   </script>
 }

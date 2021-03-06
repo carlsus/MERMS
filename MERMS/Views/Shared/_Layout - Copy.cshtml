@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Monitoring and Enforcement Records Management System</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link href="~/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/datatables-buttons/css/buttons.bootstrap4.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="~/img/logo.png" width="30" height="30" alt="logo">
+                    DENR
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <partial name="_LoginPartial" />
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - Monitoring and Enforcement Records Management System - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    @*<script src="~/jquery/jquery.min.js"></script>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+    <script src="~/bootstrap/js/bootstrap.bundle.min.js"></script>
+    @*<script src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
+
+    <script src="~/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/datatables-buttons/js/buttons.flash.min.js"></script>
+    <script src="~/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="~/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

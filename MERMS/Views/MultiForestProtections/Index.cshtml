@@ -1,37 +1,37 @@
 ﻿@model IEnumerable<MERMS.Models.MultiForestProtection>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Multi-Forest Protection Comimittee Meetings";
 }
 
-<h1>Index</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
-<table class="table table-bordered table-responsive table-hover">
+<table class="table table-bordered table-responsive table-hover" id="example">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfMeeting)
+                Tracking No
+            </th><th>
+                Date of Meeting
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VenueOfMeeting)
+                Venue of Meeting
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NumberOfAttendees)
+                Number of Attendees
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LetterOfInvitation)
+                Letter of Invitation
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AttendanceSheet)
+                Attendance Sheet
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MinutesOfMeeting)
+                Minutes of Meeting
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhotoDocumentation)
+                Photo Documentation
             </th>
             <th></th>
         </tr>
@@ -39,34 +39,36 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateOfMeeting)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.VenueOfMeeting)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumberOfAttendees)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LetterOfInvitation)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AttendanceSheet)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MinutesOfMeeting)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhotoDocumentation)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrackingNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfMeeting)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VenueOfMeeting)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfAttendees)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LetterOfInvitation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AttendanceSheet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinutesOfMeeting)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhotoDocumentation)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
@@ -76,9 +78,23 @@
 {
     <script>
         $(document).ready(function () {
-            $('.table').DataTable({
-                lengthChange:false
-            });
+            $("#example").DataTable({
+                responsive: true,
+                lengthChange: false,
+                autoWidth: false,
+                buttons: [
+                    "copy", "excel", ,
+                    {
+
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL'
+                    }
+
+                ]
+            }).buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
+
+
         })
     </script>
 }

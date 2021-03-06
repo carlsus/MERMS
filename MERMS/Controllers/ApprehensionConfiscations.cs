@@ -66,10 +66,10 @@ namespace MERMS.Controllers
             {                
                 string uniqueFileName = UploadedFile(model);
                 ApprehensionConfiscation data = new ApprehensionConfiscation { 
+                    TrackingNo=model.TrackingNo,
                     Jurisdiction=model.Jurisdiction,
                     PlaceOfApprehension = model.PlaceOfApprehension,
                     DateOfConfiscation = model.DateOfConfiscation,
-                    NumberOfPieces = model.NumberOfPieces,
                     Species = model.Species,
                     BoardFeet = model.BoardFeet,
                     CubicMeter = model.CubicMeter,
@@ -99,13 +99,32 @@ namespace MERMS.Controllers
                 return NotFound();
             }
 
-            var apprehensionConfiscation = await _context.ApprehensionConfiscations.FindAsync(id);
-            if (apprehensionConfiscation == null)
+            var model = await _context.ApprehensionConfiscations.FindAsync(id);
+            ApprehensionConfiscationViewModel vm = new ApprehensionConfiscationViewModel {
+                TrackingNo = model.TrackingNo,
+                Jurisdiction = model.Jurisdiction,
+                PlaceOfApprehension = model.PlaceOfApprehension,
+                DateOfConfiscation = model.DateOfConfiscation,
+                Species = model.Species,
+                BoardFeet = model.BoardFeet,
+                CubicMeter = model.CubicMeter,
+                VehiclePlateNo = model.VehiclePlateNo,
+                ParaphernaliaSerialNo = model.ParaphernaliaSerialNo,
+                Offender = model.Offender,
+                Address = model.Address,
+                Custodian = model.Custodian,
+                Status = model.Status,
+                EstimatedValue = model.EstimatedValue,
+                Remarks = model.Remarks,
+                //FilePath = model.FilePath,
+            };
+            
+            if (model == null)
             {
                 return NotFound();
             }
-            ApprehensionConfiscationViewModel data=apprehensionConfiscation;
-            return View(apprehensionConfiscation);
+            //ApprehensionConfiscationViewModel data=apprehensionConfiscation;
+            return View(vm);
         }
 
         // POST: ApprehensionConfiscations/Edit/5
@@ -124,7 +143,29 @@ namespace MERMS.Controllers
             {
                 try
                 {
-                    _context.Update(model);
+                    string uniqueFileName = UploadedFile(model);
+                    ApprehensionConfiscation data = new ApprehensionConfiscation
+                    {
+                        Id=model.Id,
+                        TrackingNo = model.TrackingNo,
+                        Jurisdiction = model.Jurisdiction,
+                        PlaceOfApprehension = model.PlaceOfApprehension,
+                        DateOfConfiscation = model.DateOfConfiscation,
+                        Species = model.Species,
+                        BoardFeet = model.BoardFeet,
+                        CubicMeter = model.CubicMeter,
+                        VehiclePlateNo = model.VehiclePlateNo,
+                        ParaphernaliaSerialNo = model.ParaphernaliaSerialNo,
+                        Offender = model.Offender,
+                        Address = model.Address,
+                        Custodian = model.Custodian,
+                        Status = model.Status,
+                        EstimatedValue = model.EstimatedValue,
+                        Remarks = model.Remarks,
+                        FilePath = uniqueFileName,
+                    };
+
+                    _context.Update(data);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
