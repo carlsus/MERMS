@@ -21,12 +21,14 @@ namespace MERMS.ViewModels
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? DateOfConfiscation { get; set; }
-        [Display(Name = "Number of Pieces")]
+        [Display(Name = "No. of Pcs")]
+        public int NumberOfPieces { get; set; }
+
         public string Species { get; set; }
         [Display(Name = "Board Feet")]
-        public string BoardFeet { get; set; }
+        public double BoardFeet { get; set; }
         [Display(Name = "Cubic Meter")]
-        public string CubicMeter { get; set; }
+        public double CubicMeter { get; set; }
         [Display(Name = "Vehicle and Plate Number")]
         public string VehiclePlateNo { get; set; }
         [Display(Name = "Paraphernalia and Serial Number")]

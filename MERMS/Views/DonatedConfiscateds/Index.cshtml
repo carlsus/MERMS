@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MERMS.Models.DonatedConfiscated>
 
 @{
-    ViewData["Title"] = ">Donated Confiscated Common Hardwood Lumber";
+    ViewData["Title"] = "Donated Confiscated Common Hardwood Lumber";
 }
 
 
@@ -32,41 +32,67 @@
             <th>
                 Purpose
             </th>
+            <th>
+                Attached File
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TrackingNo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateOfDonation)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DoneeRecipient)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumberOfPieces)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.VolumeBoardFeet)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EstimatedMarketValue)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Purpose)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrackingNo)
+            </td>
+            <td>
+                @if (item.DateOfDonation.HasValue)
+                {
+                    @item.DateOfDonation.Value.ToString("MM/dd/yyyy")
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoneeRecipient)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfPieces)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VolumeBoardFeet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstimatedMarketValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Purpose)
+            </td>
+            <td>
+                @if (item.FilePath != null)
+                {
+                    <a asp-action="ViewFile" asp-route-id="@item.Id" target="_blank">View PDF</a>
+                }
+
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
         }
     </tbody>
+    <tfoot>
+        <tr>
+            <th>Total</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+
+        </tr>
+    </tfoot>
 </table>
 
 @section Scripts
@@ -74,7 +100,7 @@
     <script>
         $(document).ready(function () {
             $("#example").DataTable({
-                responsive: true,
+               
                 lengthChange: false,
                 autoWidth: false,
                 buttons: [
@@ -86,7 +112,50 @@
                         pageSize: 'LEGAL'
                     }
 
-                ]
+                ],
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+
+                    // converting to interger to find total
+                    var intVal = function (i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+
+                    // computing column Total of the complete result 
+                    var estimatedvalue = api
+                        .column(3)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    var boardfeet = api
+                        .column(4)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    var cubicfeet = api
+                        .column(5)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+
+
+                    // Update footer by showing the total with the reference of the column index 
+                    $(api.column(0).footer()).html('Total');
+
+
+                    $(api.column(3).footer()).html(estimatedvalue);
+                    $(api.column(4).footer()).html(boardfeet);
+                    $(api.column(5).footer()).html(cubicfeet);
+                }
             }).buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
 
 

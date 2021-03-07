@@ -1,0 +1,75 @@
+﻿@model MERMS.ViewModels.PriceMonitoringViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Month" class="control-label"></label>
+                <input asp-for="Month" class="form-control" />
+                <span asp-validation-for="Month" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CenroConcerned" class="control-label"></label>
+                <select asp-for="CenroConcerned" class="form-control">
+                    <option value="">Choose</option>
+                    <option value="Diffun">CENRO Diffun</option>
+                    <option value="Nagtipunan">CENRO Nagtipunan</option>
+                </select>
+                <span asp-validation-for="CenroConcerned" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReleasedCenro" class="control-label"></label>
+                <input asp-for="ReleasedCenro" class="form-control" />
+                <span asp-validation-for="ReleasedCenro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReceivedPenro" class="control-label"></label>
+                <input asp-for="ReceivedPenro" class="form-control" />
+                <span asp-validation-for="ReceivedPenro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CenroReport" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="CenroReport" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <span asp-validation-for="CenroReport" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DateOfSubmission" class="control-label"></label>
+                <input asp-for="DateOfSubmission" class="form-control" />
+                <span asp-validation-for="DateOfSubmission" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PenroReport" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="PenroReport" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <span asp-validation-for="PenroReport" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Update" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+    </script>
+}

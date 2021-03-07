@@ -54,7 +54,15 @@ namespace MERMS.Controllers
         {
             return View();
         }
+        public async Task<IActionResult> ViewFile(int? id)
+        {
+            var model = await _context.ApprehensionConfiscations.FindAsync(id);
 
+
+            var path = Path.Combine(webHostEnvironment.WebRootPath, "uploads", model.FilePath);
+            var filePath = System.IO.File.OpenRead(path);
+            return File(filePath, "application/pdf");
+        }
         // POST: ApprehensionConfiscations/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -70,6 +78,7 @@ namespace MERMS.Controllers
                     Jurisdiction=model.Jurisdiction,
                     PlaceOfApprehension = model.PlaceOfApprehension,
                     DateOfConfiscation = model.DateOfConfiscation,
+                    NumberOfPieces=model.NumberOfPieces,
                     Species = model.Species,
                     BoardFeet = model.BoardFeet,
                     CubicMeter = model.CubicMeter,
@@ -105,6 +114,7 @@ namespace MERMS.Controllers
                 Jurisdiction = model.Jurisdiction,
                 PlaceOfApprehension = model.PlaceOfApprehension,
                 DateOfConfiscation = model.DateOfConfiscation,
+                NumberOfPieces = model.NumberOfPieces,
                 Species = model.Species,
                 BoardFeet = model.BoardFeet,
                 CubicMeter = model.CubicMeter,
@@ -116,7 +126,7 @@ namespace MERMS.Controllers
                 Status = model.Status,
                 EstimatedValue = model.EstimatedValue,
                 Remarks = model.Remarks,
-                //FilePath = model.FilePath,
+                
             };
             
             if (model == null)
@@ -151,6 +161,7 @@ namespace MERMS.Controllers
                         Jurisdiction = model.Jurisdiction,
                         PlaceOfApprehension = model.PlaceOfApprehension,
                         DateOfConfiscation = model.DateOfConfiscation,
+                        NumberOfPieces = model.NumberOfPieces,
                         Species = model.Species,
                         BoardFeet = model.BoardFeet,
                         CubicMeter = model.CubicMeter,

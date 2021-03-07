@@ -16,7 +16,7 @@ namespace MERMS.ViewModels
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime DateOfDonation { get; set; }
+        public DateTime? DateOfDonation { get; set; }
         [Display(Name = "Donee/Recipient")]
         public string DoneeRecipient { get; set; }
         [Display(Name = "Species/Form")]
@@ -24,9 +24,9 @@ namespace MERMS.ViewModels
         [Display(Name = "Number of Pieces")]
         public int NumberOfPieces { get; set; }
         [Display(Name = "Volume (board feet)")]
-        public string VolumeBoardFeet { get; set; }
+        public double VolumeBoardFeet { get; set; }
         [Display(Name = "Estimated Market Value")]
-        public string EstimatedMarketValue { get; set; }
+        public double EstimatedMarketValue { get; set; }
         public string Purpose { get; set; }
 
         public IFormFile FilePath { get; set; }

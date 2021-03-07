@@ -92,6 +92,16 @@ namespace MERMS.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> ViewFile(int? id)
+        {
+            var model = await _context.Confiscation.FindAsync(id);
+
+
+            var path = Path.Combine(webHostEnvironment.WebRootPath, "uploads", model.FilePath);
+            var filePath = System.IO.File.OpenRead(path);
+            return File(filePath, "application/pdf");
+        }
+
         // GET: Confiscations/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

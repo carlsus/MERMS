@@ -111,6 +111,15 @@ namespace MERMS.Controllers
             }
             return View(vm);
         }
+        public async Task<IActionResult> ViewFile(int? id)
+        {
+            var model = await _context.DonatedConfiscateds.FindAsync(id);
+
+
+            var path = Path.Combine(webHostEnvironment.WebRootPath, "uploads", model.FilePath);
+            var filePath = System.IO.File.OpenRead(path);
+            return File(filePath, "application/pdf");
+        }
 
         // POST: DonatedConfiscateds/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 

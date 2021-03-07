@@ -21,7 +21,7 @@
             @*<input asp-for="Jurisdiction" class="form-control" />*@
             <span asp-validation-for="Jurisdiction" class="text-danger"></span>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-3">
             <label asp-for="PlaceOfApprehension" class="control-label"></label>
             <input asp-for="PlaceOfApprehension" class="form-control" />
             <span asp-validation-for="PlaceOfApprehension" class="text-danger"></span>
@@ -30,6 +30,16 @@
             <label asp-for="DateOfConfiscation" class="control-label"></label>
             <input asp-for="DateOfConfiscation" class="form-control" />
             <span asp-validation-for="DateOfConfiscation" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-1">
+            <label asp-for="NumberOfPieces" class="control-label"></label>
+            <input asp-for="NumberOfPieces" class="form-control" />
+            <span asp-validation-for="NumberOfPieces" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-2">
+            <label asp-for="Species" class="control-label"></label>
+            <input asp-for="Species" class="form-control" />
+            <span asp-validation-for="Species" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-2">

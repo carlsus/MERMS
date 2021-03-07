@@ -17,8 +17,8 @@ namespace MERMS.Data.Migrations
                     DateOfDonation = table.Column<DateTime>(nullable: false),
                     DoneeRecipient = table.Column<string>(nullable: true),
                     NumberOfPieces = table.Column<int>(nullable: false),
-                    VolumeBoardFeet = table.Column<string>(nullable: true),
-                    EstimatedMarketValue = table.Column<string>(nullable: true),
+                    VolumeBoardFeet = table.Column<double>(nullable: true),
+                    EstimatedMarketValue = table.Column<double>(nullable: true),
                     Purpose = table.Column<string>(nullable: true),
                     SpeciesForm = table.Column<string>(nullable: true),
                     FilePath = table.Column<string>(nullable: true)

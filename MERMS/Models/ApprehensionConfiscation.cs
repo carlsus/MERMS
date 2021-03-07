@@ -8,9 +8,10 @@ namespace MERMS.Models
         public string Jurisdiction { get; set; }
         public string PlaceOfApprehension { get; set; }
         public DateTime? DateOfConfiscation { get; set; }
+        public int NumberOfPieces { get; set; }
         public string Species { get; set; }
-        public string BoardFeet { get; set; }
-        public string CubicMeter { get; set; }
+        public double BoardFeet { get; set; }
+        public double CubicMeter { get; set; }
         public string VehiclePlateNo { get; set; }
         public string ParaphernaliaSerialNo { get; set; }
         public string Offender { get; set; }

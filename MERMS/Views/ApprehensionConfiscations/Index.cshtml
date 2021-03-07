@@ -14,15 +14,18 @@
             <th>
                 Place of Apprehension
             </th>
-           
+
             <th>
                 Date of Confiscation
             </th>
             <th>
-                Spicies
+                Number Of Pieces
             </th>
             <th>
-                Board Feet 
+                Species
+            </th>
+            <th>
+                Board Feet
             </th>
             <th>
                 Cubic Meter
@@ -31,7 +34,7 @@
                 Vehicle and Plate Number
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ParaphernaliaSerialNo)
+                Paraphernalia and Serial No.
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Offender)
@@ -51,62 +54,99 @@
             <th>
                 @Html.DisplayNameFor(model => model.Remarks)
             </th>
+            <th>
+                Attached File
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.TrackingNo)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.PlaceOfApprehension)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.DateOfConfiscation)
-    </td>
-   
-    <td>
-        @Html.DisplayFor(modelItem => item.Species)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.BoardFeet)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.CubicMeter)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.VehiclePlateNo)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ParaphernaliaSerialNo)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Offender)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Address)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Custodian)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Status)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.EstimatedValue)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Remarks)
-    </td>
-    <td>
-        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-    </td>
-</tr>}
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrackingNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlaceOfApprehension)
+            </td>
+            <td>
+                @if (item.DateOfConfiscation.HasValue)
+                {
+                    @item.DateOfConfiscation.Value.ToString("MM/dd/yyyy")
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberOfPieces)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Species)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BoardFeet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CubicMeter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehiclePlateNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParaphernaliaSerialNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Offender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Custodian)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstimatedValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remarks)
+            </td>
+            <td>
+                @if (item.FilePath != null)
+                {
+                    <a asp-action="ViewFile" asp-route-id="@item.Id" target="_blank">View PDF</a>
+                }
+
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>}
     </tbody>
+    <tfoot>
+        <tr>
+            <th><strong>Total</strong></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </tfoot>
 </table>
 
 @section Scripts
@@ -114,9 +154,9 @@
     <script>
         $(document).ready(function () {
             $("#example").DataTable({
-                responsive: true,
+                
                 lengthChange: false,
-                autoWidth: false,
+                //autoWidth: false,
                 buttons: [
                     "copy", "excel", ,
                     {
@@ -126,7 +166,50 @@
                         pageSize: 'LEGAL'
                     }
                     
-                ]
+                ],
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+
+                    // converting to interger to find total
+                    var intVal = function (i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+
+                    // computing column Total of the complete result 
+                    var numpcs = api
+                        .column(3)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    var boardfeet = api
+                        .column(5)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    var cubicfeet = api
+                        .column(6)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    
+
+                    // Update footer by showing the total with the reference of the column index 
+                    $(api.column(0).footer()).html('Total');
+                    
+                   
+                    $(api.column(3).footer()).html(numpcs);
+                    $(api.column(5).footer()).html(boardfeet);
+                    $(api.column(6).footer()).html(cubicfeet);
+                }
             }).buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
 
            

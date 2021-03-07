@@ -35,6 +35,7 @@ namespace MERMS.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            public string Fullname { get; set; }
         }
 
         private async Task LoadAsync(IdentityUser user)
@@ -46,7 +47,7 @@ namespace MERMS.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
                
             };
         }

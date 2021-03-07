@@ -22,10 +22,10 @@ namespace MERMS.Data.Migrations
                     CourtFiled = table.Column<string>(nullable: true),
                     VehiclePlateNo = table.Column<string>(nullable: true),
                     KindSpecies = table.Column<string>(nullable: true),
-                    EstimatedValue = table.Column<string>(nullable: true),
+                    EstimatedValue = table.Column<double>(nullable: true),
                     ForestProductStockPiled = table.Column<string>(nullable: true),
-                    BoardFeet = table.Column<string>(nullable: true),
-                    CubicMeter = table.Column<string>(nullable: true),
+                    BoardFeet = table.Column<double>(nullable: true),
+                    CubicMeter = table.Column<double>(nullable: true),
                     Status = table.Column<string>(nullable: true),
                     Remarks = table.Column<string>(nullable: true),
                     FilePath = table.Column<string>(nullable: true)

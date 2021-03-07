@@ -86,6 +86,43 @@ namespace MERMS.Controllers
             }
             return View(model);
         }
+        public async Task<IActionResult> LetterOfInvitation(int? id)
+        {
+            var model = await _context.MultiForestProtections.FindAsync(id);
+
+
+            var path = Path.Combine(webHostEnvironment.WebRootPath, "uploads", model.LetterOfInvitation);
+            var filePath = System.IO.File.OpenRead(path);
+            return File(filePath, "application/pdf");
+        }
+        public async Task<IActionResult> AttendanceSheet(int? id)
+        {
+            var model = await _context.MultiForestProtections.FindAsync(id);
+
+
+            var path = Path.Combine(webHostEnvironment.WebRootPath, "uploads", model.AttendanceSheet);
+            var filePath = System.IO.File.OpenRead(path);
+            return File(filePath, "application/pdf");
+        }
+        public async Task<IActionResult> MinutesOfMeeting(int? id)
+        {
+            var model = await _context.MultiForestProtections.FindAsync(id);
+
+
+            var path = Path.Combine(webHostEnvironment.WebRootPath, "uploads", model.MinutesOfMeeting);
+            var filePath = System.IO.File.OpenRead(path);
+            return File(filePath, "application/pdf");
+        }
+
+        public async Task<IActionResult> PhotoDocumentation(int? id)
+        {
+            var model = await _context.MultiForestProtections.FindAsync(id);
+
+
+            var path = Path.Combine(webHostEnvironment.WebRootPath, "uploads", model.PhotoDocumentation);
+            var filePath = System.IO.File.OpenRead(path);
+            return File(filePath, "application/pdf");
+        }
 
         // GET: MultiForestProtections/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -95,12 +132,21 @@ namespace MERMS.Controllers
                 return NotFound();
             }
 
-            var multiForestProtection = await _context.MultiForestProtections.FindAsync(id);
-            if (multiForestProtection == null)
+            var model = await _context.MultiForestProtections.FindAsync(id);
+            MultiForestProtectionViewModel vm = new MultiForestProtectionViewModel
+            {
+                TrackingNo = model.TrackingNo,
+                DateOfMeeting = model.DateOfMeeting,
+                VenueOfMeeting = model.VenueOfMeeting,
+                NumberOfAttendees = model.NumberOfAttendees,
+                
+
+            };
+            if (model == null)
             {
                 return NotFound();
             }
-            return View(multiForestProtection);
+            return View(vm);
         }
 
         // POST: MultiForestProtections/Edit/5
@@ -108,9 +154,9 @@ namespace MERMS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DateOfMeeting,VenueOfMeeting,NumberOfAttendees,LetterOfInvitation,AttendanceSheet,MinutesOfMeeting,PhotoDocumentation")] MultiForestProtection multiForestProtection)
+        public async Task<IActionResult> Edit(int id,  MultiForestProtectionViewModel model)
         {
-            if (id != multiForestProtection.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
@@ -119,12 +165,28 @@ namespace MERMS.Controllers
             {
                 try
                 {
-                    _context.Update(multiForestProtection);
+                    string letterOfInvitation = UploadedFile(model.LetterOfInvitation);
+                    string attendanceSheet = UploadedFile(model.AttendanceSheet);
+                    string minutesOfMeeting = UploadedFile(model.MinutesOfMeeting);
+                    string photoDocumentation = UploadedFile(model.PhotoDocumentation);
+                    MultiForestProtection data = new MultiForestProtection
+                    {
+                        Id = model.Id,
+                        TrackingNo = model.TrackingNo,
+                        DateOfMeeting = model.DateOfMeeting,
+                        VenueOfMeeting = model.VenueOfMeeting,
+                        NumberOfAttendees = model.NumberOfAttendees,
+                        LetterOfInvitation = letterOfInvitation,
+                        AttendanceSheet = attendanceSheet,
+                        MinutesOfMeeting = minutesOfMeeting,
+                        PhotoDocumentation = photoDocumentation,
+                    };
+                    _context.Update(data);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MultiForestProtectionExists(multiForestProtection.Id))
+                    if (!MultiForestProtectionExists(model.Id))
                     {
                         return NotFound();
                     }
@@ -135,7 +197,7 @@ namespace MERMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(multiForestProtection);
+            return View(model);
         }
 
         // GET: MultiForestProtections/Delete/5

@@ -17,7 +17,7 @@ namespace MERMS.ViewModels
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime DateOfMeeting { get; set; }
+        public DateTime? DateOfMeeting { get; set; }
         [Display(Name = "Venue of Meeting")]
         public string VenueOfMeeting { get; set; }
         [Display(Name = "Number of Attendees")]

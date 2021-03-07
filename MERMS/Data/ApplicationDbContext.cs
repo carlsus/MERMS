@@ -19,5 +19,6 @@ namespace MERMS.Data
         public DbSet<Confiscation> Confiscation { get; set; }
         public DbSet<DonatedConfiscated> DonatedConfiscateds { get; set; }
         public DbSet<MultiForestProtection> MultiForestProtections { get; set; }
+        public DbSet<PriceMonitoring> PriceMonitorings { get; set; }
     }
 }

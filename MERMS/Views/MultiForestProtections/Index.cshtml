@@ -44,7 +44,10 @@
                 @Html.DisplayFor(modelItem => item.TrackingNo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateOfMeeting)
+                @if (item.DateOfMeeting.HasValue)
+                {
+                    @item.DateOfMeeting.Value.ToString("MM/dd/yyyy")
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.VenueOfMeeting)
@@ -53,16 +56,28 @@
                 @Html.DisplayFor(modelItem => item.NumberOfAttendees)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LetterOfInvitation)
+                @if (item.LetterOfInvitation != null)
+                {
+                    <a asp-action="LetterOfInvitation" asp-route-id="@item.Id" target="_blank">View PDF</a>
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AttendanceSheet)
+                @if (item.AttendanceSheet != null)
+                {
+                    <a asp-action="AttendanceSheet" asp-route-id="@item.Id" target="_blank">View PDF</a>
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MinutesOfMeeting)
+                @if (item.MinutesOfMeeting != null)
+                {
+                    <a asp-action="MinutesOfMeeting" asp-route-id="@item.Id" target="_blank">View PDF</a>
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PhotoDocumentation)
+                @if (item.PhotoDocumentation != null)
+                {
+                    <a asp-action="PhotoDocumentation" asp-route-id="@item.Id" target="_blank">View PDF</a>
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -71,6 +86,19 @@
         </tr>
         }
     </tbody>
+    <tfoot>
+        <tr>
+            <th>Total</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </tfoot>
 </table>
 
 
@@ -79,7 +107,6 @@
     <script>
         $(document).ready(function () {
             $("#example").DataTable({
-                responsive: true,
                 lengthChange: false,
                 autoWidth: false,
                 buttons: [
@@ -91,7 +118,34 @@
                         pageSize: 'LEGAL'
                     }
 
-                ]
+                ],
+                
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+
+                    // converting to interger to find total
+                    var intVal = function (i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+
+                    // computing column Total of the complete result 
+                    var estimatedvalue = api
+                        .column(3)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    
+                    $(api.column(0).footer()).html('Total');
+
+
+                    $(api.column(3).footer()).html(estimatedvalue);
+                   
+                }
             }).buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
 
 

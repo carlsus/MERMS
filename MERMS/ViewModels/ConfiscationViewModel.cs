@@ -34,14 +34,14 @@ namespace MERMS.ViewModels
         public string KindSpecies { get; set; }
         [Display(Name = "Estimated Value")]
 
-        public string EstimatedValue { get; set; }
+        public double EstimatedValue { get; set; }
         [Display(Name = "Forest Product Stockpiled")]
 
         public string ForestProductStockPiled { get; set; }
         [Display(Name = "Board Feet")]
-        public string BoardFeet { get; set; }
+        public double BoardFeet { get; set; }
         [Display(Name = "Cubic Meter")]
-        public string CubicMeter { get; set; }
+        public double CubicMeter { get; set; }
         public string Status { get; set; }
         public string Remarks { get; set; }
         public IFormFile FilePath { get; set; }

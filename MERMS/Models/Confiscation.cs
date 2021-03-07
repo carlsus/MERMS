@@ -18,10 +18,10 @@ namespace MERMS.Models
         public string VehiclePlateNo { get; set; }
         public string KindSpecies { get; set; }
        
-        public string EstimatedValue { get; set; }
+        public double EstimatedValue { get; set; }
         public string ForestProductStockPiled { get; set; }
-        public string BoardFeet { get; set; }
-        public string CubicMeter { get; set; }
+        public double BoardFeet { get; set; }
+        public double CubicMeter { get; set; }
         public string Status { get; set; }
         public string Remarks { get; set; }
         public string FilePath { get; set; }

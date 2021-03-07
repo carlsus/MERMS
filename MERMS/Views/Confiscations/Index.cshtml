@@ -53,7 +53,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Remarks)
             </th>
-            
+            <th>
+                Attached File
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -65,7 +67,10 @@
                     @Html.DisplayFor(modelItem => item.TrackingNo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateFiled)
+                    @if (item.DateFiled.HasValue)
+                    {
+                        @item.DateFiled.Value.ToString("MM/dd/yyyy")
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DocketCaseNo)
@@ -103,7 +108,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Remarks)
                 </td>
-               
+                <td>
+                    @if (item.FilePath != null)
+                    {
+                        <a asp-action="ViewFile" asp-route-id="@item.Id" target="_blank">View PDF</a>
+                    }
+
+                </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
@@ -111,6 +122,26 @@
             </tr>
         }
     </tbody>
+    <tfoot>
+        <tr>
+            <th>Total</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </tfoot>
 </table>
 
 
@@ -120,7 +151,7 @@
     <script>
         $(document).ready(function () {
             $("#example").DataTable({
-                responsive: true,
+                //responsive: true,
                 lengthChange: false,
                 autoWidth: false,
                 buttons: [
@@ -132,7 +163,50 @@
                         pageSize: 'LEGAL'
                     }
 
-                ]
+                ],
+                "footerCallback": function (row, data, start, end, display) {
+                    var api = this.api(), data;
+
+                    // converting to interger to find total
+                    var intVal = function (i) {
+                        return typeof i === 'string' ?
+                            i.replace(/[\$,]/g, '') * 1 :
+                            typeof i === 'number' ?
+                                i : 0;
+                    };
+
+                    // computing column Total of the complete result 
+                    var estimatedvalue = api
+                        .column(8)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    var boardfeet = api
+                        .column(10)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+                    var cubicfeet = api
+                        .column(11)
+                        .data()
+                        .reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+
+
+
+                    // Update footer by showing the total with the reference of the column index 
+                    $(api.column(0).footer()).html('Total');
+
+
+                    $(api.column(8).footer()).html(estimatedvalue);
+                    $(api.column(10).footer()).html(boardfeet);
+                    $(api.column(11).footer()).html(cubicfeet);
+                }
             }).buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
 
 
