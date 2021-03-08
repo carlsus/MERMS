@@ -200,28 +200,9 @@ namespace MERMS.Controllers
             return View(model);
         }
 
-        // GET: MultiForestProtections/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var multiForestProtection = await _context.MultiForestProtections
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (multiForestProtection == null)
-            {
-                return NotFound();
-            }
-
-            return View(multiForestProtection);
-        }
-
-        // POST: MultiForestProtections/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+       
+        public async Task<IActionResult> Delete(int id)
         {
             var multiForestProtection = await _context.MultiForestProtections.FindAsync(id);
             _context.MultiForestProtections.Remove(multiForestProtection);

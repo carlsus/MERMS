@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MERMS.Models.Confiscation>
 
 @{
-    ViewData["Title"] = "Confiscation with Case Filed in Court";
+    ViewData["Title"] = "Environmental Case Filed in Court";
 }
 
 
@@ -116,8 +116,8 @@
 
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" class="btn btn-info" asp-route-id="@item.Id">Edit</a> |
+                    <button class="btn btn-info" onclick="Delete(@item.Id)" title="Delete">Delete</button>
                 </td>
             </tr>
         }
@@ -211,6 +211,23 @@
 
 
         })
+        function Delete(id) {
+            var result = confirm("Are you sure you want to delete?");
+            if (result) {
+                $.ajax({
+                    type: 'POST',
+                    url: "Delete/" + id,
+                    contentType: false,
+                    processData: false,
+                    success: function (res) {
+                        location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+            }
+        }
     </script>
 
 }

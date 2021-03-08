@@ -195,34 +195,14 @@ namespace MERMS.Controllers
             return View(model);
         }
 
-        // GET: ApprehensionConfiscations/Delete/5
         public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var apprehensionConfiscation = await _context.ApprehensionConfiscations
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (apprehensionConfiscation == null)
-            {
-                return NotFound();
-            }
-
-            return View(apprehensionConfiscation);
-        }
-
-        // POST: ApprehensionConfiscations/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var apprehensionConfiscation = await _context.ApprehensionConfiscations.FindAsync(id);
             _context.ApprehensionConfiscations.Remove(apprehensionConfiscation);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool ApprehensionConfiscationExists(int id)
         {

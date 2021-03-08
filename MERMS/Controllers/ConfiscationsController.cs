@@ -195,27 +195,10 @@ namespace MERMS.Controllers
         }
 
         // GET: Confiscations/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var confiscation = await _context.Confiscation
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (confiscation == null)
-            {
-                return NotFound();
-            }
-
-            return View(confiscation);
-        }
-
+       
         // POST: Confiscations/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+       
+        public async Task<IActionResult> Delete(int id)
         {
             var confiscation = await _context.Confiscation.FindAsync(id);
             _context.Confiscation.Remove(confiscation);

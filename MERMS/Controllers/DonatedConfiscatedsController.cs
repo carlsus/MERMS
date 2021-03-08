@@ -170,28 +170,7 @@ namespace MERMS.Controllers
             return View(model);
         }
 
-        // GET: DonatedConfiscateds/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var donatedConfiscated = await _context.DonatedConfiscateds
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (donatedConfiscated == null)
-            {
-                return NotFound();
-            }
-
-            return View(donatedConfiscated);
-        }
-
-        // POST: DonatedConfiscateds/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var donatedConfiscated = await _context.DonatedConfiscateds.FindAsync(id);
             _context.DonatedConfiscateds.Remove(donatedConfiscated);

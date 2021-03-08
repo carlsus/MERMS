@@ -11,19 +11,30 @@
                 <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Task &amp; Reports</a>
                 <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                     <li>
-                        <a class="dropdown-item" asp-controller="ApprehensionConfiscations" asp-action="Index">Apprehension &amp; Confiscation </a>
+                        <a class="dropdown-item" asp-controller="ApprehensionConfiscations" asp-action="Index">Confiscation/Apprehension </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" asp-controller="Confiscations" asp-action="Index">Confiscation with Case Filed in Court</a>
+                        <a class="dropdown-item" asp-controller="Confiscations" asp-action="Index">Environmental Case Filed in Court</a>
                     </li>
                     <li>
                         <a class="dropdown-item" asp-controller="DonatedConfiscateds" asp-action="Index">Donated Confiscated Common Hardwood Lumber</a>
                     </li>
-                    <li>
-                        <a class="dropdown-item" asp-controller="PriceMonitorings" asp-action="Index">Price Monitoring Report of Wood Products</a>
-                    </li>
+                    <li class="dropdown-submenu dropdown-hover">
+                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Price Monitoring Report of Wood Products</a>
+                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
 
+                            <li>
+                                <a class="dropdown-item" asp-controller="PriceMonitorings" asp-action="Index">CENRO Price Monitoring Report</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-controller="PenroPriceMonitorings" asp-action="Index">Consolidated Price Monitoring Report </a>
+                            </li>
+
+                        </ul>
+                    </li>
                     
+
+
                     <li>
                         <a class="dropdown-item" asp-controller="MultiForestProtections" asp-action="Index">Multi-Forest Protection Comimittee Meetings</a>
                     </li>

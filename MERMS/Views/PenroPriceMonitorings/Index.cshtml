@@ -1,0 +1,46 @@
+﻿@model IEnumerable<MERMS.Models.PenroPriceMonitoring>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TrackingNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReleasedPenro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PenroReport)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrackingNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleasedPenro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PenroReport)
+            </td>
+            <td>
+                <a asp-action="Edit" class="btn btn-info" asp-route-id="@item.Id">Edit</a> |
+                <button class="btn btn-info" onclick="Delete(@item.Id)" title="Delete">Delete</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -10,11 +10,8 @@ namespace MERMS.ViewModels
     public class PriceMonitoringViewModel
     {
         public int Id { get; set; }
-        [Display(Name = "Month")]
-        [Required]
-        [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime? Month { get; set; }
+        [Display(Name = "Tracking No.")]
+        public string TrackingNo { get; set; }
         [Display(Name = "CENRO Concerned")]
         public string CenroConcerned { get; set; }
         [Display(Name = "Date of Report Released from CENRO")]
@@ -29,12 +26,6 @@ namespace MERMS.ViewModels
         public DateTime? ReceivedPenro { get; set; }
         [Display(Name = "CENRO Report")]
         public IFormFile CenroReport { get; set; }
-        [Display(Name = "PENRO Report")]
-        public IFormFile PenroReport { get; set; }
-        [Display(Name = "Date of Submission of Consolidated Report Released at PENRO")]
-        [Required]
-        [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime? DateOfSubmission { get; set; }
+     
     }
 }

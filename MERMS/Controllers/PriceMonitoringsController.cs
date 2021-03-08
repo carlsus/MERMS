@@ -65,17 +65,15 @@ namespace MERMS.Controllers
             if (ModelState.IsValid)
             {
                 string cenroReport = UploadedFile(model.CenroReport);
-                string penroReport = UploadedFile(model.PenroReport);
 
                 PriceMonitoring data = new PriceMonitoring
                 {
-                    Month = model.Month,
+                    TrackingNo = model.TrackingNo,
                     CenroConcerned = model.CenroConcerned,
                     ReleasedCenro = model.ReleasedCenro,
                     ReceivedPenro = model.ReceivedPenro,
-                    CenroReport = cenroReport,
-                    DateOfSubmission=model.DateOfSubmission,
-                    PenroReport=penroReport
+                    CenroReport = cenroReport
+                    
                 };
                 _context.Add(data);
                 await _context.SaveChangesAsync();
@@ -95,12 +93,12 @@ namespace MERMS.Controllers
             var model = await _context.PriceMonitorings.FindAsync(id);
             PriceMonitoringViewModel vm = new PriceMonitoringViewModel
             {
-                Month = model.Month,
+                TrackingNo = model.TrackingNo,
                 CenroConcerned = model.CenroConcerned,
                 ReleasedCenro = model.ReleasedCenro,
                 ReceivedPenro = model.ReceivedPenro,
                
-                DateOfSubmission = model.DateOfSubmission,
+              
                
 
             };
@@ -128,18 +126,16 @@ namespace MERMS.Controllers
                 try
                 {
                     string cenroReport = UploadedFile(model.CenroReport);
-                    string penroReport = UploadedFile(model.PenroReport);
 
                     PriceMonitoring data = new PriceMonitoring
                     {
                         Id=model.Id,
-                        Month = model.Month,
+                        TrackingNo = model.TrackingNo,
                         CenroConcerned = model.CenroConcerned,
                         ReleasedCenro = model.ReleasedCenro,
                         ReceivedPenro = model.ReceivedPenro,
-                        CenroReport = cenroReport,
-                        DateOfSubmission = model.DateOfSubmission,
-                        PenroReport = penroReport
+                        CenroReport = cenroReport
+                        
                     };
                     _context.Update(data);
                     await _context.SaveChangesAsync();
@@ -160,23 +156,7 @@ namespace MERMS.Controllers
             return View(model);
         }
 
-        // GET: PriceMonitorings/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var priceMonitoring = await _context.PriceMonitorings
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (priceMonitoring == null)
-            {
-                return NotFound();
-            }
-
-            return View(priceMonitoring);
-        }
+      
         public async Task<IActionResult> CenroReport(int? id)
         {
             var model = await _context.PriceMonitorings.FindAsync(id);
@@ -186,19 +166,8 @@ namespace MERMS.Controllers
             var filePath = System.IO.File.OpenRead(path);
             return File(filePath, "application/pdf");
         }
-        public async Task<IActionResult> PenroReport(int? id)
-        {
-            var model = await _context.PriceMonitorings.FindAsync(id);
-
-
-            var path = Path.Combine(webHostEnvironment.WebRootPath, "uploads", model.PenroReport);
-            var filePath = System.IO.File.OpenRead(path);
-            return File(filePath, "application/pdf");
-        }
-        // POST: PriceMonitorings/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+       
+        public async Task<IActionResult> Delete(int id)
         {
             var priceMonitoring = await _context.PriceMonitorings.FindAsync(id);
             _context.PriceMonitorings.Remove(priceMonitoring);
