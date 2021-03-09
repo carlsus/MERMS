@@ -9,7 +9,7 @@ namespace MERMS.Models
     {
         public int Id { get; set; }
         public string TrackingNo { get; set; }
-        public DateTime ReleasedPenro { get; set; }
+        public DateTime? ReleasedPenro { get; set; }
         public string PenroReport { get; set; }
     }
 }

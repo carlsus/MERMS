@@ -7,16 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MERMS.Data;
 using MERMS.Models;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using MERMS.ViewModels;
+using Microsoft.AspNetCore.Http;
 
 namespace MERMS.Controllers
 {
     public class PenroPriceMonitoringsController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public PenroPriceMonitoringsController(ApplicationDbContext context)
+        private readonly IWebHostEnvironment webHostEnvironment;
+        public PenroPriceMonitoringsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            webHostEnvironment = hostEnvironment;
         }
 
         // GET: PenroPriceMonitorings
@@ -25,6 +30,15 @@ namespace MERMS.Controllers
             return View(await _context.PenroPriceMonitorings.ToListAsync());
         }
 
+        public async Task<IActionResult> PenroREport(int? id)
+        {
+            var model = await _context.PenroPriceMonitorings.FindAsync(id);
+
+
+            var path = Path.Combine(webHostEnvironment.WebRootPath, "uploads", model.PenroReport);
+            var filePath = System.IO.File.OpenRead(path);
+            return File(filePath, "application/pdf");
+        }
         // GET: PenroPriceMonitorings/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -54,15 +68,22 @@ namespace MERMS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,TrackingNo,ReleasedPenro,PenroReport")] PenroPriceMonitoring penroPriceMonitoring)
+        public async Task<IActionResult> Create(PenroPriceMonitoringViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(penroPriceMonitoring);
+                string penroReport = UploadedFile(model.PenroReport);
+                PenroPriceMonitoring data = new PenroPriceMonitoring
+                {
+                    TrackingNo = model.TrackingNo,
+                    ReleasedPenro=model.ReleasedPenro,
+                    PenroReport=penroReport
+                };
+                _context.Add(data);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(penroPriceMonitoring);
+            return View(model);
         }
 
         // GET: PenroPriceMonitorings/Edit/5
@@ -73,12 +94,20 @@ namespace MERMS.Controllers
                 return NotFound();
             }
 
-            var penroPriceMonitoring = await _context.PenroPriceMonitorings.FindAsync(id);
-            if (penroPriceMonitoring == null)
+            var m = await _context.PenroPriceMonitorings.FindAsync(id);
+            PenroPriceMonitoringViewModel vm = new PenroPriceMonitoringViewModel
+            {
+                
+               TrackingNo=m.TrackingNo,
+               ReleasedPenro=m.ReleasedPenro
+
+
+            };
+            if (m == null)
             {
                 return NotFound();
             }
-            return View(penroPriceMonitoring);
+            return View(vm);
         }
 
         // POST: PenroPriceMonitorings/Edit/5
@@ -86,9 +115,9 @@ namespace MERMS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,TrackingNo,ReleasedPenro,PenroReport")] PenroPriceMonitoring penroPriceMonitoring)
+        public async Task<IActionResult> Edit(int id, PenroPriceMonitoringViewModel model)
         {
-            if (id != penroPriceMonitoring.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
@@ -97,12 +126,20 @@ namespace MERMS.Controllers
             {
                 try
                 {
-                    _context.Update(penroPriceMonitoring);
+                    string penroReport = UploadedFile(model.PenroReport);
+                    PenroPriceMonitoring data = new PenroPriceMonitoring
+                    {
+                        Id = model.Id,
+                        TrackingNo = model.TrackingNo,
+                        ReleasedPenro = model.ReleasedPenro,
+                        PenroReport = penroReport
+                    };
+                    _context.Update(data);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PenroPriceMonitoringExists(penroPriceMonitoring.Id))
+                    if (!PenroPriceMonitoringExists(model.Id))
                     {
                         return NotFound();
                     }
@@ -113,7 +150,7 @@ namespace MERMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(penroPriceMonitoring);
+            return View(model);
         }
 
       
@@ -128,6 +165,23 @@ namespace MERMS.Controllers
         private bool PenroPriceMonitoringExists(int id)
         {
             return _context.PenroPriceMonitorings.Any(e => e.Id == id);
+        }
+
+        private string UploadedFile(IFormFile model)
+        {
+            string uniqueFileName = null;
+
+            if (model != null)
+            {
+                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "uploads");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
         }
     }
 }

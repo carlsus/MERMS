@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,8 +16,8 @@ namespace MERMS.ViewModels
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime ReleasedPenro { get; set; }
+        public DateTime? ReleasedPenro { get; set; }
         [Display(Name = "PENRO Report")]
-        public string PenroReport { get; set; }
+        public IFormFile PenroReport { get; set; }
     }
 }

@@ -1,46 +1,91 @@
 ﻿@model IEnumerable<MERMS.Models.PenroPriceMonitoring>
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Consolidated Price Monitoring Report";
 }
 
-<h1>Index</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
-<table class="table">
+<table class="table table-bordered table-responsive table-hover w-100" id="example">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TrackingNo)
+                Tracking No
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReleasedPenro)
+                Date of Consolidated Report Released to PENRO
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PenroReport)
+                PENRO Report
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrackingNo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleasedPenro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PenroReport)
-            </td>
-            <td>
-                <a asp-action="Edit" class="btn btn-info" asp-route-id="@item.Id">Edit</a> |
-                <button class="btn btn-info" onclick="Delete(@item.Id)" title="Delete">Delete</button>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrackingNo)
+                </td>
+                <td>
+                    @if (item.ReleasedPenro.HasValue)
+                    {
+                        @item.ReleasedPenro.Value.ToString("MM/dd/yyyy")
+                    }
+                </td>
+                <td>
+                    @if (item.PenroReport != null)
+                    {
+                        <a asp-action="PenroReport" asp-route-id="@item.Id" target="_blank">View PDF</a>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-info" asp-route-id="@item.Id">Edit</a> |
+                    <button class="btn btn-info" onclick="Delete(@item.Id)" title="Delete">Delete</button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#example").DataTable({
+                lengthChange: false,
+                responsive:true,
+                autoWidth: false,
+                buttons: [
+                    "copy", "excel", ,
+                    {
+
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL'
+                    }
+
+                ]
+            }).buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
+
+
+        })
+        function Delete(id) {
+            var result = confirm("Are you sure you want to delete?");
+            if (result) {
+                $.ajax({
+                    type: 'POST',
+                    url: "Delete/" + id,
+                    contentType: false,
+                    processData: false,
+                    success: function (res) {
+                        location.reload();
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+            }
+        }
+    </script>
+}

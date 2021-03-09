@@ -4,9 +4,11 @@
     ViewData["Title"] = "Create";
 }
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create"  enctype="multipart/form-data">
+
+<form asp-action="Create" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+
             <div class="form-group">
                 <label asp-for="TrackingNo" class="control-label"></label>
                 <input asp-for="TrackingNo" class="form-control" />
@@ -27,6 +29,9 @@
                 <input asp-for="NumberOfAttendees" class="form-control" />
                 <span asp-validation-for="NumberOfAttendees" class="text-danger"></span>
             </div>
+
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
                 <label class="control-label">Letter of Inviation</label>
                 <div class="custom-file">
@@ -59,20 +64,21 @@
                 </div>
                 <span asp-validation-for="PhotoDocumentation" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+        <div class="form-group col-md-12">
+            <input type="submit" value="Save" class="btn btn-primary float-right" />
+        </div>
     </div>
-</div>
+</form>
+
 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-<script>
-    $(".custom-file-input").on("change", function() {
-        var fileName = $(this).val().split("\\").pop();
-        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-    });
-</script>
+    <script>
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
 }
