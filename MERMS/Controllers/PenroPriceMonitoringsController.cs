@@ -11,6 +11,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using MERMS.ViewModels;
 using Microsoft.AspNetCore.Http;
+using Wkhtmltopdf.NetCore;
 
 namespace MERMS.Controllers
 {
@@ -18,12 +19,25 @@ namespace MERMS.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
-        public PenroPriceMonitoringsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
+        readonly IGeneratePdf _generatePdf;
+
+        public PenroPriceMonitoringsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment,IGeneratePdf generatePdf)
         {
             _context = context;
             webHostEnvironment = hostEnvironment;
+            _generatePdf = generatePdf;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Report(int yr)
+        {
+            var data = new PenroPriceMonitoringReportModel
+            {
+                PenroPriceMonitorings = _context.PenroPriceMonitorings.Where(m => m.ReleasedPenro.Value.Year == yr).ToList(),
+                Year = yr
+            };
+            return await _generatePdf.GetPdf("Views/penropricemonitorings/Print.cshtml", data);
+        }
         // GET: PenroPriceMonitorings
         public async Task<IActionResult> Index()
         {

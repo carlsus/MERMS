@@ -54,19 +54,11 @@
         $(document).ready(function () {
             $("#example").DataTable({
                 lengthChange: false,
+                searching:true,
                 responsive:true,
                 autoWidth: false,
-                buttons: [
-                    "copy", "excel", ,
-                    {
-
-                        extend: 'pdfHtml5',
-                        orientation: 'landscape',
-                        pageSize: 'LEGAL'
-                    }
-
-                ]
-            }).buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
+                
+            })
 
 
         })

@@ -12,6 +12,7 @@ using MERMS.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Wkhtmltopdf.NetCore;
 
 namespace MERMS
 {
@@ -32,6 +33,8 @@ namespace MERMS
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddControllers();
+            services.AddWkhtmltopdf();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -56,10 +59,12 @@ namespace MERMS
                var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
                context.Database.Migrate();
             }
+            app.UseRouting();
             app.UseHttpsRedirection();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            app.UseRouting();
+            
 
             app.UseAuthentication();
             app.UseAuthorization();
@@ -70,6 +75,7 @@ namespace MERMS
                     name: "default",
                     pattern: "{controller=Account}/{action=Login}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }

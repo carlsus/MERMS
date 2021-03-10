@@ -10,7 +10,7 @@
     <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <link href="~/plugins/datatables-responsive/css/responsive.bootstrap4.min.css" rel="stylesheet" />
     <link href="~/plugins/datatables-buttons/css/buttons.bootstrap4.min.css" rel="stylesheet" />
-
+    <link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
@@ -27,6 +27,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <partial name="_LoginPartial" />
+                <partial name="Reports" />
             </div>
         </nav>
         <!-- /.navbar -->
@@ -45,7 +46,8 @@
                                 <li class="breadcrumb-item"><a href="#">Layout</a></li>
                                 <li class="breadcrumb-item active">Top Navigation</li>
                             </ol>
-                        </div>--><!-- /.col -->
+                        </div>-->
+                        <!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
@@ -64,12 +66,12 @@
 
         <!-- Main Footer -->
         <!--<footer class="main-footer">-->
-            <!-- To the right -->
-            <!--<div class="float-right d-none d-sm-inline">
-                Anything you want
-            </div>-->
-            <!-- Default to the left -->
-            <!--<strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+        <!-- To the right -->
+        <!--<div class="float-right d-none d-sm-inline">
+            Anything you want
+        </div>-->
+        <!-- Default to the left -->
+        <!--<strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
         </footer>-->
     </div>
 
@@ -90,7 +92,120 @@
     <script src="~/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="~/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script src="~/js/adminlte.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#preview1').on('click', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/apprehensionconfiscations/report",
+                    type: "get", //send it through get method
+                    data: {
+                        jurisdiction: $('#Jurisdiction1').val(),
+                        yr: $('#Year1').val()
+                    },
+                    success: function (response) {
+                        $('#modal1').modal('hide');
+                        var win = window.open("/apprehensionconfiscations/report?jurisdiction=" + $('#Jurisdiction1').val() + "&yr=" + $('#Year1').val() , '_blank');
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            })
 
+            $('#preview2').on('click', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/confiscations/report",
+                    type: "get", //send it through get method
+                    data: {
+                        jurisdiction: $('#Jurisdiction2').val(),
+                        yr: $('#Year2').val()
+                    },
+                    success: function (response) {
+                        $('#modal2').modal('hide');
+                        var win = window.open("/confiscations/report?jurisdiction=" + $('#Jurisdiction2').val() + "&yr=" + $('#Year2').val(), '_blank');
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            })
+
+            $('#preview3').on('click', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/donatedconfiscateds/report",
+                    type: "get", //send it through get method
+                    data: {
+                        yr: $('#Year3').val()
+                    },
+                    success: function (response) {
+                        $('#modal3').modal('hide');
+                        var win = window.open("/donatedconfiscateds/report?&yr=" + $('#Year3').val(), '_blank');
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            })
+
+            $('#preview4').on('click', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/pricemonitorings/report",
+                    type: "get", //send it through get method
+                    data: {
+                        yr: $('#Year4').val()
+                    },
+                    success: function (response) {
+                        $('#modal4').modal('hide');
+                        var win = window.open("/pricemonitorings/report?&yr=" + $('#Year4').val(), '_blank');
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            })
+            $('#preview5').on('click', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/penropricemonitorings/report",
+                    type: "get", //send it through get method
+                    data: {
+                        yr: $('#Year5').val()
+                    },
+                    success: function (response) {
+                        $('#modal5').modal('hide');
+                        var win = window.open("/penropricemonitorings/report?&yr=" + $('#Year5').val(), '_blank');
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            })
+
+
+            $('#preview6').on('click', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "/multiforestprotections/report",
+                    type: "get", //send it through get method
+                    data: {
+                        yr: $('#Year6').val()
+                    },
+                    success: function (response) {
+                        $('#modal6').modal('hide');
+                        var win = window.open("/multiforestprotections/report?&yr=" + $('#Year6').val(), '_blank');
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            })
+        })
+
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

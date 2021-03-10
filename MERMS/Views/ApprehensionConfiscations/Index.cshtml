@@ -2,10 +2,6 @@
 
 @{ ViewData["Title"] = "Confiscation/Apprehension"; }
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
-
 
 <table class="table table-bordered table-responsive table-hover w-100" id="example">
     <thead>
@@ -21,7 +17,7 @@
                 Date of Confiscation
             </th>
             <th>
-                Number Of Pieces
+                No. Of Pcs
             </th>
             <th>
                 Species
@@ -158,20 +154,28 @@
     <script>
         $(document).ready(function () {
             $("#example").DataTable({
-
+                responsive:true,
                 lengthChange: false,
-                //autoWidth: false,
-                buttons: [
-                    "copy", "excel", ,
-                    {
-
-                        extend: 'pdfHtml5',
-                        orientation: 'landscape',
-                        pageSize: 'LEGAL',
-
+                dom: "Bftipr",
+                buttons: {
+                    buttons: [
+                        {
+                            text: "Create New",
+                            action: function (e, dt, node, config) {
+                                location.href='./Create'
+                            }
+                        }
+                    ],
+                    dom: {
+                        button: {
+                            tag: "button",
+                            className: "btn btn-primary btn-group btn-group-vertical"
+                        },
+                        buttonLiner: {
+                            tag: null
+                        }
                     }
-
-                ],
+                },
                 "footerCallback": function (row, data, start, end, display) {
                     var api = this.api(), data;
 

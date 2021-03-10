@@ -11,6 +11,8 @@ using MERMS.ViewModels;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
+using AspNetCore.Reporting;
+using Wkhtmltopdf.NetCore;
 
 namespace MERMS.Controllers
 {
@@ -19,12 +21,36 @@ namespace MERMS.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
-        public ApprehensionConfiscations(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
+        readonly IGeneratePdf _generatePdf;
+        public ApprehensionConfiscations(ApplicationDbContext context, IWebHostEnvironment hostEnvironment, IGeneratePdf generatePdf)
         {
             _context = context;
-            webHostEnvironment = hostEnvironment; 
+            webHostEnvironment = hostEnvironment;
+            _generatePdf = generatePdf;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Report(string jurisdiction, int yr)
+        {
+
+            var options = new CustomOptions
+            {
+                PageOrientation = Wkhtmltopdf.NetCore.Options.Orientation.Landscape
+            };
+            _generatePdf.SetConvertOptions(options);
+
+
+
+            var data = new ApprehensionConfiscationReportModel
+            {
+                ApprehensionConfiscations = _context.ApprehensionConfiscations.Where(m => m.Jurisdiction == jurisdiction && m.DateOfConfiscation.Value.Year == yr).ToList(),
+                Jurisdiction=jurisdiction,
+                Year=yr
+            };
+            TempData["jurisdiction"] = jurisdiction;
+            TempData["year"] = yr;
+            return await _generatePdf.GetPdf("Views/ApprehensionConfiscations/Print.cshtml", data);
+        }
         // GET: ApprehensionConfiscations
         public async Task<IActionResult> Index()
         {

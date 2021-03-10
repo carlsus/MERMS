@@ -46,7 +46,10 @@
                     }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ReceivedPenro)
+                    @if (item.ReceivedPenro.HasValue)
+                    {
+                        @item.ReceivedPenro.Value.ToString("MM/dd/yyyy")
+                    }
                 </td>
                 <td>
                     @if (item.CenroReport != null)
@@ -71,21 +74,11 @@
     <script>
         $(document).ready(function () {
             $("#example").DataTable({
+                searching: true,
                 lengthChange: false,
-                autoWidth: false,
-                buttons: [
-                    "copy", "excel", ,
-                    {
-
-                        extend: 'pdfHtml5',
-                        orientation: 'landscape',
-                        pageSize: 'LEGAL'
-                    }
-
-                ]
-            }).buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
-
-
+                autoWidth: false
+            })
+               
         })
         function Delete(id) {
             var result = confirm("Are you sure you want to delete?");

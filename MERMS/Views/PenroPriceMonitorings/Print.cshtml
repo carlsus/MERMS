@@ -1,0 +1,81 @@
+﻿@model MERMS.ViewModels.PenroPriceMonitoringReportModel
+@{
+    ViewData["Title"] = "CONSOLIDATED PRICE MONITORING REPORT";
+    Layout = null;
+}
+<html lang="en">
+<head>
+    <title>Multi-Forest Protection Comimittee Meetings</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <style>
+        h6 {
+            position: absolute;
+            left: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h6 class="text-center">Republic of the Philippines </h6> <br />
+        <h6 class="text-center">Department of Environment and Natural Resoirces </h6><br />
+        <img src="https://www.bworldonline.com/wp-content/uploads/2017/08/denr-logo.jpg" width="400" style="vertical-align:top;margin-top:-80px;margin-left:-120px ">
+
+        <h6 class="text-center" style="top:50px"><strong>PROVINCIAL ENVIRONMENT AND NATURAL RESOURCES OFFICE-QUIRINO</strong>  </h6><br />
+        <h6 class="text-center" style="top:80px">Andres Bonifacio, Diffun, Quirino </h6><br />
+        <h6 class="text-center" style="top:110px">Contact No. 0977-243-8492 </h6><br />
+        <h6 class="text-center" style="top:140px">Email Ad: denr_qrno@yahoo.com/ penroquirino@gmail.com </h6><br />
+
+
+
+        <h6 class="text-center" style="top:200px"><strong>CONSOLIDATED PRICE MONITORING REPORT</strong></h6><br />
+        <h6 class="text-center" style="top:230px"><strong>For Calendar Year @Model.Year</strong></h6>
+    </header>
+    <div style="margin-top:20px">
+        <table class="table table-bordered table-responsive table-hover w-100" id="example">
+            <thead>
+                <tr>
+                    <th>
+                        Tracking No
+                    </th>
+                    <th>
+                        Date of Consolidated Report Released to PENRO
+                    </th>
+                    <th>
+                        PENRO Report
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.PenroPriceMonitorings)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TrackingNo)
+                        </td>
+                        <td>
+                            @if (item.ReleasedPenro.HasValue)
+                            {
+                                @item.ReleasedPenro.Value.ToString("MM/dd/yyyy")
+                            }
+                        </td>
+                        <td>
+                           
+                        </td>
+                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+
+</body>
+</html>
+

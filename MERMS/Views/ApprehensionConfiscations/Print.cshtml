@@ -1,0 +1,190 @@
+﻿@model MERMS.ViewModels.ApprehensionConfiscationReportModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+
+}
+@{ 
+    double numpcs = 0;
+    double bdft = 0;
+    double cumtr = 0;
+    foreach (var item in Model.ApprehensionConfiscations)
+    {
+        numpcs += item.NumberOfPieces;
+        bdft += item.BoardFeet;
+        cumtr += item.CubicMeter;
+    }
+}
+
+<html lang="en">
+<head>
+    <title>Confiscation/Apprehension</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <style>
+        h5 {
+            position: absolute;
+            left: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h5 class="text-center">Republic of the Philippines </h5> <br />
+        <h5 class="text-center">Department of Environment and Natural Resoirces </h5><br />
+        <img src="https://www.bworldonline.com/wp-content/uploads/2017/08/denr-logo.jpg" width="500" style="vertical-align:top;margin-top:-80px;margin-left:200px ">
+
+        <h5 class="text-center" style="top:50px"><strong>PROVINCIAL ENVIRONMENT AND NATURAL RESOURCES OFFICE-QUIRINO</strong>  </h5><br />
+        <h5 class="text-center" style="top:80px">Andres Bonifacio, Diffun, Quirino </h5><br />
+        <h5 class="text-center" style="top:110px">Contact No. 0977-243-8492 </h5><br />
+        <h5 class="text-center" style="top:140px">Email Ad: denr_qrno@yahoo.com/ penroquirino@gmail.com </h5><br />
+
+
+
+        <h5 class="text-center" style="top:200px"><strong>SUMMARY OF CONFISCATION/APPREHENSION</strong></h5><br />
+        <h5 class="text-center" style="top:230px"><strong>For Calendar Year @Model.Year</strong></h5>
+    </header>
+    <label style="font-size:x-large;font-weight:bold">CENRO - @Model.Jurisdiction</label>
+    <div style="margin-top:20px">
+        <table class="table table-bordered table-responsive table-hover w-100" style="font-size:x-large">
+            <thead>
+                <tr>
+                    <th>
+                        Tracking Number
+                    </th>
+                    <th>
+                        Place of Apprehension
+                    </th>
+
+                    <th>
+                        Date of Confiscation
+                    </th>
+                    <th>
+                        Number Of Pieces
+                    </th>
+                    <th>
+                        Species
+                    </th>
+                    <th>
+                        Board Feet
+                    </th>
+                    <th>
+                        Cubic Meter
+                    </th>
+                    <th>
+                        Vehicle and Plate Number
+                    </th>
+                    <th>
+                        Paraphernalia and Serial No.
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApprehensionConfiscations.FirstOrDefault().Offender)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApprehensionConfiscations.FirstOrDefault().Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApprehensionConfiscations.FirstOrDefault().Custodian)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApprehensionConfiscations.FirstOrDefault().Status)
+                    </th>
+                    <th>
+                        Estimated Value
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ApprehensionConfiscations.FirstOrDefault().Remarks)
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ApprehensionConfiscations)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TrackingNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PlaceOfApprehension)
+                        </td>
+                        <td>
+                            @if (item.DateOfConfiscation.HasValue)
+                            {
+                                @item.DateOfConfiscation.Value.ToString("MM/dd/yyyy")
+                            }
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(modelItem => item.NumberOfPieces)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Species)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(modelItem => item.BoardFeet)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(modelItem => item.CubicMeter)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VehiclePlateNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ParaphernaliaSerialNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Offender)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Custodian)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EstimatedValue)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Remarks)
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total</th>
+                    <th></th>
+                    <th></th>
+                    
+                    <th>@numpcs</th>
+                    <th></th>
+                    <th>@bdft</th>
+                    <th>@cumtr</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+
+
+</body>
+</html>
+

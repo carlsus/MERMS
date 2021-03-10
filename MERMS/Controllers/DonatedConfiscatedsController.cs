@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using MERMS.ViewModels;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Wkhtmltopdf.NetCore;
 
 namespace MERMS.Controllers
 {
@@ -19,10 +20,27 @@ namespace MERMS.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
-        public DonatedConfiscatedsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
+        readonly IGeneratePdf _generatePdf;
+
+        public DonatedConfiscatedsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment, IGeneratePdf generatePdf)
         {
             _context = context;
             webHostEnvironment = hostEnvironment;
+            _generatePdf = generatePdf;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Report(int yr)
+        {
+
+
+
+            var data = new DonatedConfiscatatedReportModel
+            {
+                DonatedConfiscateds = _context.DonatedConfiscateds.Where( m=>m.DateOfDonation.Value.Year == yr).ToList(),
+                Year = yr
+            };
+            return await _generatePdf.GetPdf("Views/DonatedConfiscateds/Print.cshtml", data);
         }
 
         // GET: DonatedConfiscateds

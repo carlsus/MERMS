@@ -1,0 +1,130 @@
+﻿@model MERMS.ViewModels.DonatedConfiscatatedReportModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+@{ 
+    double numpcs = 0;
+    double bdft = 0;
+    double estimatedvalue = 0;
+    foreach (var item in Model.DonatedConfiscateds)
+    {
+        numpcs += item.NumberOfPieces;
+        bdft += item.VolumeBoardFeet;
+        estimatedvalue += item.EstimatedMarketValue;
+    }
+}
+<html lang="en">
+<head>
+    <title>Donated Confiscated Common Hardwood Lumber</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <style>
+        h6 {
+            position: absolute;
+            left: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h6 class="text-center">Republic of the Philippines </h6> <br />
+        <h6 class="text-center">Department of Environment and Natural Resoirces </h6><br />
+        <img src="https://www.bworldonline.com/wp-content/uploads/2017/08/denr-logo.jpg" width="400" style="vertical-align:top;margin-top:-80px;margin-left:-120px ">
+
+        <h6 class="text-center" style="top:50px"><strong>PROVINCIAL ENVIRONMENT AND NATURAL RESOURCES OFFICE-QUIRINO</strong>  </h6><br />
+        <h6 class="text-center" style="top:80px">Andres Bonifacio, Diffun, Quirino </h6><br />
+        <h6 class="text-center" style="top:110px">Contact No. 0977-243-8492 </h6><br />
+        <h6 class="text-center" style="top:140px">Email Ad: denr_qrno@yahoo.com/ penroquirino@gmail.com </h6><br />
+
+
+
+        <h6 class="text-center" style="top:200px"><strong>DONATED CONFISCATED COMMON HARDWOOD LUMBER </strong></h6><br />
+        <h6 class="text-center" style="top:230px"><strong>For Calendar Year @Model.Year</strong></h6>
+    </header>
+    <div style="margin-top:20px">
+        <table class="table table-bordered table-responsive table-hover" id="example">
+            <thead>
+                <tr>
+                    <th>
+                        Tracking No
+                    </th>
+                    <th>
+                        Date of Donation
+                    </th>
+                    <th>
+                        Donee/Recipient
+                    </th>
+                    <th>
+                        Number of Pieces
+                    </th>
+                    <th>
+                        Volume (Board Feet)
+                    </th>
+                    <th>
+                        Estimated Market Value
+                    </th>
+                    <th>
+                        Purpose
+                    </th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.DonatedConfiscateds)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TrackingNo)
+                        </td>
+                        <td>
+                            @if (item.DateOfDonation.HasValue)
+                            {
+                                @item.DateOfDonation.Value.ToString("MM/dd/yyyy")
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DoneeRecipient)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(modelItem => item.NumberOfPieces)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(modelItem => item.VolumeBoardFeet)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EstimatedMarketValue)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Purpose)
+                        </td>
+                        
+                       
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total</th>
+                    <th></th>
+                    <th></th>
+                    <th>@numpcs</th>
+                    <th>@bdft</th>
+                    <th>@estimatedvalue</th>
+                    <th></th>
+
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+
+
+</body>
+</html>
+

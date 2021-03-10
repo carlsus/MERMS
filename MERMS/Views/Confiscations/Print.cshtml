@@ -1,0 +1,175 @@
+﻿@model MERMS.ViewModels.ConfiscationReportModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+@{ double estimated_value = 0;
+    foreach (var item in Model.Confiscations)
+    {
+        estimated_value += item.EstimatedValue;
+    }
+}
+<html lang="en">
+<head>
+    <title>Summary of Filed Environmental Complaint in the Court</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <style>
+        h5 {
+            position: absolute;
+            left: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h5 class="text-center">Republic of the Philippines </h5> <br />
+        <h5 class="text-center">Department of Environment and Natural Resoirces </h5><br />
+        <img src="https://www.bworldonline.com/wp-content/uploads/2017/08/denr-logo.jpg" width="400" style="vertical-align:top;margin-top:-80px;margin-left:0px ">
+
+        <h5 class="text-center" style="top:50px"><strong>PROVINCIAL ENVIRONMENT AND NATURAL RESOURCES OFFICE-QUIRINO</strong>  </h5><br />
+        <h5 class="text-center" style="top:80px">Andres Bonifacio, Diffun, Quirino </h5><br />
+        <h5 class="text-center" style="top:110px">Contact No. 0977-243-8492 </h5><br />
+        <h5 class="text-center" style="top:140px">Email Ad: denr_qrno@yahoo.com/ penroquirino@gmail.com </h5><br />
+
+
+
+        <h5 class="text-center" style="top:200px"><strong>SUMMARY OF FILED ENVIRONMENTAL COMPLAINT IN THE COURT</strong></h5><br />
+        <h5 class="text-center" style="top:230px"><strong>For Calendar Year @Model.Year</strong></h5>
+    </header>
+    <label style="font-size:x-large;font-weight:bold">CENRO - @Model.Jurisdiction</label>
+    <div style="margin-top:20px">
+        <table class="table table-bordered table-responsive table-hover" id="example">
+            <thead>
+                <tr>
+                    <th>
+                        Tracking No
+                    </th>
+                    <th>
+                        Date Filed
+                    </th>
+                    <th>
+                        Docket/Case Number
+                    </th>
+                    <th>
+                        Case Title/Respondent
+                    </th>
+                    <th>
+                        Nature of Violation
+                    </th>
+                    <th>
+                        Court where Case Filed
+                    </th>
+                    <th>
+                        Plate Number of Vehicle
+                    </th>
+                    <th>
+                        Kind/Species of Forest Products
+                    </th>
+                    <th>
+                        Estimated Value
+                    </th>
+                    <th>
+                        Forest Product Stockpiled
+                    </th>
+                    @*<th>
+                            Board Feet
+                        </th>
+                        <th>
+                            Cubic Meter
+                        </th>*@
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Remarks
+                    </th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Confiscations)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TrackingNo)
+                        </td>
+                        <td>
+                            @if (item.DateFiled.HasValue)
+                            {
+                                @item.DateFiled.Value.ToString("MM/dd/yyyy")
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DocketCaseNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CaseTitleRespondent)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NatureOfViolation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourtFiled)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VehiclePlateNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.KindSpecies)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.DisplayFor(modelItem => item.EstimatedValue)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ForestProductStockPiled)
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.BoardFeet)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CubicMeter)
+                            </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Remarks)
+                        </td>
+
+
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>@estimated_value</th>
+                    @*<th></th>
+                        <th></th>*@
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+
+
+</body>
+</html>
+

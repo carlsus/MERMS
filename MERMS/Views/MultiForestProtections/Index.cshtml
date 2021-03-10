@@ -109,16 +109,7 @@
             $("#example").DataTable({
                 lengthChange: false,
                 autoWidth: false,
-                buttons: [
-                    "copy", "excel", ,
-                    {
-
-                        extend: 'pdfHtml5',
-                        orientation: 'landscape',
-                        pageSize: 'LEGAL'
-                    }
-
-                ],
+                searching:true,
                 
                 "footerCallback": function (row, data, start, end, display) {
                     var api = this.api(), data;

@@ -11,6 +11,7 @@ using MERMS.ViewModels;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
+using Wkhtmltopdf.NetCore;
 
 namespace MERMS.Controllers
 {
@@ -19,17 +20,39 @@ namespace MERMS.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
-
-        public ConfiscationsController(ApplicationDbContext context,IWebHostEnvironment hostEnvironment)
+        readonly IGeneratePdf _generatePdf;
+        public ConfiscationsController(ApplicationDbContext context,IWebHostEnvironment hostEnvironment, IGeneratePdf generatePdf)
         {
             _context = context;
             webHostEnvironment = hostEnvironment;
+            _generatePdf = generatePdf;
         }
 
         // GET: Confiscations
         public async Task<IActionResult> Index()
         {
             return View(await _context.Confiscation.ToListAsync());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Report(string jurisdiction, int yr)
+        {
+
+            var options = new CustomOptions
+            {
+                PageOrientation = Wkhtmltopdf.NetCore.Options.Orientation.Landscape
+            };
+            _generatePdf.SetConvertOptions(options);
+
+
+
+            var data = new ConfiscationReportModel
+            {
+                Confiscations = _context.Confiscation.Where(m => m.Jurisdiction == jurisdiction && m.DateFiled.Value.Year == yr).ToList(),
+                Jurisdiction = jurisdiction,
+                Year = yr
+            };
+            return await _generatePdf.GetPdf("Views/Confiscations/Print.cshtml", data);
         }
 
         // GET: Confiscations/Details/5
