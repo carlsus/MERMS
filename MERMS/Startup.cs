@@ -12,7 +12,7 @@ using MERMS.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Wkhtmltopdf.NetCore;
+using Rotativa.AspNetCore;
 
 namespace MERMS
 {
@@ -21,6 +21,9 @@ namespace MERMS
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+
+            
         }
 
         public IConfiguration Configuration { get; }
@@ -33,10 +36,9 @@ namespace MERMS
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllers();
-            services.AddWkhtmltopdf();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,22 +63,19 @@ namespace MERMS
             }
             app.UseRouting();
             app.UseHttpsRedirection();
-            app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            
 
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Account}/{action=Login}/{id?}");
                 endpoints.MapRazorPages();
-                endpoints.MapControllers();
             });
+            RotativaConfiguration.Setup((Microsoft.AspNetCore.Hosting.IHostingEnvironment)env,"./Rotativa");
         }
     }
 }

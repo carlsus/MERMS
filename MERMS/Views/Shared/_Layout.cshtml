@@ -97,7 +97,7 @@
             $('#preview1').on('click', function (e) {
                 e.preventDefault();
                 $.ajax({
-                    url: "/apprehensionconfiscations/report",
+                    url: "/merms/apprehensionconfiscations/report",
                     type: "get", //send it through get method
                     data: {
                         jurisdiction: $('#Jurisdiction1').val(),
@@ -105,7 +105,7 @@
                     },
                     success: function (response) {
                         $('#modal1').modal('hide');
-                        var win = window.open("/apprehensionconfiscations/report?jurisdiction=" + $('#Jurisdiction1').val() + "&yr=" + $('#Year1').val() , '_blank');
+                        var win = window.open("/merms/apprehensionconfiscations/report?jurisdiction=" + $('#Jurisdiction1').val() + "&yr=" + $('#Year1').val() , '_blank');
                     },
                     error: function (xhr) {
                         alert('error');
@@ -116,7 +116,7 @@
             $('#preview2').on('click', function (e) {
                 e.preventDefault();
                 $.ajax({
-                    url: "/confiscations/report",
+                    url: "/merms/confiscations/report",
                     type: "get", //send it through get method
                     data: {
                         jurisdiction: $('#Jurisdiction2').val(),
@@ -124,7 +124,7 @@
                     },
                     success: function (response) {
                         $('#modal2').modal('hide');
-                        var win = window.open("/confiscations/report?jurisdiction=" + $('#Jurisdiction2').val() + "&yr=" + $('#Year2').val(), '_blank');
+                        var win = window.open("/merms/confiscations/report?jurisdiction=" + $('#Jurisdiction2').val() + "&yr=" + $('#Year2').val(), '_blank');
                     },
                     error: function (xhr) {
                         alert('error');
@@ -135,14 +135,14 @@
             $('#preview3').on('click', function (e) {
                 e.preventDefault();
                 $.ajax({
-                    url: "/donatedconfiscateds/report",
+                    url: "/merms/donatedconfiscateds/report",
                     type: "get", //send it through get method
                     data: {
                         yr: $('#Year3').val()
                     },
                     success: function (response) {
                         $('#modal3').modal('hide');
-                        var win = window.open("/donatedconfiscateds/report?&yr=" + $('#Year3').val(), '_blank');
+                        var win = window.open("/merms/donatedconfiscateds/report?&yr=" + $('#Year3').val(), '_blank');
                     },
                     error: function (xhr) {
                         alert('error');
@@ -153,14 +153,14 @@
             $('#preview4').on('click', function (e) {
                 e.preventDefault();
                 $.ajax({
-                    url: "/pricemonitorings/report",
+                    url: "/merms/pricemonitorings/report",
                     type: "get", //send it through get method
                     data: {
                         yr: $('#Year4').val()
                     },
                     success: function (response) {
                         $('#modal4').modal('hide');
-                        var win = window.open("/pricemonitorings/report?&yr=" + $('#Year4').val(), '_blank');
+                        var win = window.open("/merms/pricemonitorings/report?&yr=" + $('#Year4').val(), '_blank');
                     },
                     error: function (xhr) {
                         alert('error');
@@ -170,14 +170,14 @@
             $('#preview5').on('click', function (e) {
                 e.preventDefault();
                 $.ajax({
-                    url: "/penropricemonitorings/report",
+                    url: "/merms/penropricemonitorings/report",
                     type: "get", //send it through get method
                     data: {
                         yr: $('#Year5').val()
                     },
                     success: function (response) {
                         $('#modal5').modal('hide');
-                        var win = window.open("/penropricemonitorings/report?&yr=" + $('#Year5').val(), '_blank');
+                        var win = window.open("/merms/penropricemonitorings/report?&yr=" + $('#Year5').val(), '_blank');
                     },
                     error: function (xhr) {
                         alert('error');
@@ -189,14 +189,14 @@
             $('#preview6').on('click', function (e) {
                 e.preventDefault();
                 $.ajax({
-                    url: "/multiforestprotections/report",
+                    url: "/merms/multiforestprotections/report",
                     type: "get", //send it through get method
                     data: {
                         yr: $('#Year6').val()
                     },
                     success: function (response) {
                         $('#modal6').modal('hide');
-                        var win = window.open("/multiforestprotections/report?&yr=" + $('#Year6').val(), '_blank');
+                        var win = window.open("/merms/multiforestprotections/report?&yr=" + $('#Year6').val(), '_blank');
                     },
                     error: function (xhr) {
                         alert('error');

@@ -11,7 +11,7 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using MERMS.ViewModels;
 using Microsoft.AspNetCore.Hosting;
-using Wkhtmltopdf.NetCore;
+using Rotativa.AspNetCore;
 
 namespace MERMS.Controllers
 {
@@ -19,17 +19,15 @@ namespace MERMS.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
-        readonly IGeneratePdf _generatePdf;
 
-        public MultiForestProtectionsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment, IGeneratePdf generatePdf)
+        public MultiForestProtectionsController(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             webHostEnvironment = hostEnvironment;
-            _generatePdf = generatePdf;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Report(int yr)
+        public IActionResult Report(int yr)
         {
 
 
@@ -39,7 +37,10 @@ namespace MERMS.Controllers
                 MultiForestProtections = _context.MultiForestProtections.Where(m => m.DateOfMeeting.Value.Year == yr).ToList(),
                 Year = yr
             };
-            return await _generatePdf.GetPdf("Views/multiforestprotections/Print.cshtml", data);
+
+            return new ViewAsPdf("Print", data) { };
+
+            //return await _generatePdf.GetPdf("Views/multiforestprotections/Print.cshtml", data);
         }
 
         // GET: MultiForestProtections

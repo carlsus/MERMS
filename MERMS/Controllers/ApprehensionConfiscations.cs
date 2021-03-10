@@ -12,7 +12,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
 using AspNetCore.Reporting;
-using Wkhtmltopdf.NetCore;
+using Rotativa.AspNetCore;
 
 namespace MERMS.Controllers
 {
@@ -21,41 +21,42 @@ namespace MERMS.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
-        readonly IGeneratePdf _generatePdf;
-        public ApprehensionConfiscations(ApplicationDbContext context, IWebHostEnvironment hostEnvironment, IGeneratePdf generatePdf)
+        public ApprehensionConfiscations(ApplicationDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             webHostEnvironment = hostEnvironment;
-            _generatePdf = generatePdf;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Report(string jurisdiction, int yr)
+        public IActionResult Report(string jurisdiction, int yr)
         {
 
-            var options = new CustomOptions
-            {
-                PageOrientation = Wkhtmltopdf.NetCore.Options.Orientation.Landscape
-            };
-            _generatePdf.SetConvertOptions(options);
+            //var options = new CustomOptions
+            //{
+            //    PageOrientation = Wkhtmltopdf.NetCore.Options.Orientation.Landscape
+            //};
+            //_generatePdf.SetConvertOptions(options);
 
 
 
             var data = new ApprehensionConfiscationReportModel
             {
                 ApprehensionConfiscations = _context.ApprehensionConfiscations.Where(m => m.Jurisdiction == jurisdiction && m.DateOfConfiscation.Value.Year == yr).ToList(),
-                Jurisdiction=jurisdiction,
-                Year=yr
+                Jurisdiction = jurisdiction,
+                Year = yr
             };
-            TempData["jurisdiction"] = jurisdiction;
-            TempData["year"] = yr;
-            return await _generatePdf.GetPdf("Views/ApprehensionConfiscations/Print.cshtml", data);
+            return new ViewAsPdf("Print",data) {
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4
+            };
+            //return await _generatePdf.GetPdf("Views/ApprehensionConfiscations/Print.cshtml", data);
         }
-        // GET: ApprehensionConfiscations
+        //// GET: ApprehensionConfiscations
         public async Task<IActionResult> Index()
         {
             return View(await _context.ApprehensionConfiscations.ToListAsync());
         }
+
 
         // GET: ApprehensionConfiscations/Details/5
         public async Task<IActionResult> Details(int? id)

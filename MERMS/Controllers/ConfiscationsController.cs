@@ -11,7 +11,7 @@ using MERMS.ViewModels;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
-using Wkhtmltopdf.NetCore;
+using Rotativa.AspNetCore;
 
 namespace MERMS.Controllers
 {
@@ -20,12 +20,10 @@ namespace MERMS.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment webHostEnvironment;
-        readonly IGeneratePdf _generatePdf;
-        public ConfiscationsController(ApplicationDbContext context,IWebHostEnvironment hostEnvironment, IGeneratePdf generatePdf)
+        public ConfiscationsController(ApplicationDbContext context,IWebHostEnvironment hostEnvironment)
         {
             _context = context;
             webHostEnvironment = hostEnvironment;
-            _generatePdf = generatePdf;
         }
 
         // GET: Confiscations
@@ -35,15 +33,10 @@ namespace MERMS.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Report(string jurisdiction, int yr)
+        public IActionResult Report(string jurisdiction, int yr)
         {
 
-            var options = new CustomOptions
-            {
-                PageOrientation = Wkhtmltopdf.NetCore.Options.Orientation.Landscape
-            };
-            _generatePdf.SetConvertOptions(options);
-
+            
 
 
             var data = new ConfiscationReportModel
@@ -52,7 +45,11 @@ namespace MERMS.Controllers
                 Jurisdiction = jurisdiction,
                 Year = yr
             };
-            return await _generatePdf.GetPdf("Views/Confiscations/Print.cshtml", data);
+            return new ViewAsPdf("Print", data) {
+                PageOrientation = Rotativa.AspNetCore.Options.Orientation.Landscape,
+                PageSize = Rotativa.AspNetCore.Options.Size.A4
+            };
+
         }
 
         // GET: Confiscations/Details/5
