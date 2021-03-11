@@ -154,7 +154,24 @@
                 responsive: true,
                 lengthChange: false,
                 autoWidth: false,
-
+                buttons: [
+                    {
+                        extend: 'excelHtml5',
+                        footer: true,
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL',
+                        footer: true,
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+                        }
+                    }
+                ],
                 "footerCallback": function (row, data, start, end, display) {
                     var api = this.api(), data;
 
@@ -168,21 +185,21 @@
 
                     // computing column Total of the complete result 
                     var estimatedvalue = api
-                        .column(8)
+                        .column(8, { page: 'current' })
                         .data()
                         .reduce(function (a, b) {
                             return intVal(a) + intVal(b);
                         }, 0);
 
                     var boardfeet = api
-                        .column(10)
+                        .column(10, { page: 'current' })
                         .data()
                         .reduce(function (a, b) {
                             return intVal(a) + intVal(b);
                         }, 0);
 
                     var cubicfeet = api
-                        .column(11)
+                        .column(11, { page: 'current' })
                         .data()
                         .reduce(function (a, b) {
                             return intVal(a) + intVal(b);
