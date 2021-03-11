@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +19,7 @@ namespace MERMS.Controllers
         private readonly ApplicationDbContext _context;
 
         public UsersController(ApplicationDbContext context, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
-        { 
+        {
             _context = context;
             _signInManager = signInManager;
             _userManager = userManager;
@@ -64,7 +64,15 @@ namespace MERMS.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FullName=model.FullName,EmailConfirmed=true,TwoFactorEnabled=true};
+                var user = new ApplicationUser {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FullName = model.FullName,
+                    Position = model.Position,
+                    OfficeNo = model.OfficeNo,
+                    MobileNo = model.MobileNo,
+                    EmailConfirmed = true,
+                    TwoFactorEnabled = true };
                 var result = await _userManager.CreateAsync(user, model.PasswordHash);
                 //_context.Add(applicationUser);
                 await _context.SaveChangesAsync();
@@ -94,23 +102,38 @@ namespace MERMS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("FullName,Position,OfficeNo,MobileNo,PhotoPath,Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
+        public async Task<IActionResult> Edit(string id, ApplicationUser model)
         {
-            if (id != applicationUser.Id)
+            if (id != model.Id)
             {
                 return NotFound();
             }
-
+            var user = await _userManager.GetUserAsync(User);
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(applicationUser);
-                    await _context.SaveChangesAsync();
+                    ApplicationUser appUser = new ApplicationUser {
+              
+                        UserName = user.Email,
+                        Email = user.Email,
+                        FullName = model.FullName,
+                        Position = model.Position,
+                        OfficeNo = model.OfficeNo,
+                        MobileNo = model.MobileNo,
+                        EmailConfirmed = user.EmailConfirmed,
+                        TwoFactorEnabled = user.TwoFactorEnabled,
+                        
+
+                    };
+                    
+                    //_context.Update(applicationUser);
+                    //await _context.SaveChangesAsync();
+                    await _userManager.UpdateAsync(appUser);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ApplicationUserExists(applicationUser.Id))
+                    if (!ApplicationUserExists(model.Id))
                     {
                         return NotFound();
                     }
@@ -121,11 +144,11 @@ namespace MERMS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(applicationUser);
+            return View(model);
         }
 
-        
-      
+
+
         public async Task<IActionResult> Delete(string id)
         {
             var applicationUser = await _context.ApplicationUsers.FindAsync(id);

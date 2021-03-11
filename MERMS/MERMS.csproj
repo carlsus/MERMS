@@ -26,6 +26,7 @@
     <Folder Include="wwwroot\Rotativa\" />
     <Folder Include="wwwroot\uploads\" />
     <Folder Include="Email\" />
+    <Folder Include="Views\Users\" />
   </ItemGroup>
 
   <ItemGroup>

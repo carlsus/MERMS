@@ -10,19 +10,21 @@
     <link href="~/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <link href="~/plugins/datatables-responsive/css/responsive.bootstrap4.min.css" rel="stylesheet" />
     <link href="~/plugins/datatables-buttons/css/buttons.bootstrap4.min.css" rel="stylesheet" />
+    <style>
+        ul, li {
+            list-style-type: none;
+        }
+
+        li {
+            padding-left: 2em;
+            text-indent: -3em;
+        }
+    </style>
 
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">
-        <div class="login-logo">
-            <img src="~/img/logo.png" width="80px" /> <br />
-            <a href="#"><b>DENR</b></a>
-        </div>
-        <!-- /.login-logo -->
-        <div class="card">
-            @RenderBody()
-            <!-- /.login-card-body -->
-        </div>
+        @RenderBody()
     </div>
     <!-- /.login-box -->
 

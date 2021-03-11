@@ -50,14 +50,25 @@ namespace MERMS.Controllers
                 await _signinmanager.SignOutAsync();
                 Microsoft.AspNetCore.Identity.SignInResult result = await _signinmanager.PasswordSignInAsync(appUser,model.Password, false, true);
                 if (result.Succeeded)
+                {
                     return Redirect(model.ReturnUrl ?? "/Home/Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Login Failed: Invalid Email or password");
+                }
 
                 if (result.RequiresTwoFactor)
                 {
                     return RedirectToAction("LoginTwoStep", new { appUser.Email,model.ReturnUrl });
                 }
             }
-            ModelState.AddModelError(nameof(model.Email), "Login Failed: Invalid Email or password");
+            else
+            {
+                ModelState.AddModelError("", "Login Failed: Invalid Email or password");
+
+            }
+
             return View(model);
         }
 
