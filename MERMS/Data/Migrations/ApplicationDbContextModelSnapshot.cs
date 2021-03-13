@@ -219,7 +219,7 @@ namespace MERMS.Data.Migrations
                     b.Property<string>("PenroReport")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("ReleasedPenro")
+                    b.Property<DateTime?>("ReleasedPenro")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TrackingNo")
@@ -463,6 +463,7 @@ namespace MERMS.Data.Migrations
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<string>("FullName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("MobileNo")

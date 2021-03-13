@@ -75,7 +75,6 @@ namespace MERMS
                     pattern: "{controller=Account}/{action=Login}/{id?}");
                 endpoints.MapRazorPages();
             });
-            RotativaConfiguration.Setup((Microsoft.AspNetCore.Hosting.IHostingEnvironment)env,"./Rotativa");
         }
     }
 }

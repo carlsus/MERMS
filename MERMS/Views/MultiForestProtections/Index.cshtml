@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MERMS.Models.MultiForestProtection>
 
 @{
-    ViewData["Title"] = "Multi-Forest Protection Committee Meetings";
+    ViewData["Title"] = "Multi-sectoral Forest Protection Committee Meeting";
 }
 
 <p>
@@ -33,7 +33,7 @@
             <th>
                 Photo Documentation
             </th>
-            <th></th>
+            <th width="13%"></th>
         </tr>
     </thead>
     <tbody>
@@ -80,8 +80,8 @@
                 }
             </td>
             <td>
-                <a asp-action="Edit" class="btn btn-info" asp-route-id="@item.Id">Edit</a> |
-                <button class="btn btn-info" onclick="Delete(@item.Id)" title="Delete">Delete</button>
+                <a asp-action="Edit" class="btn btn-light" asp-route-id="@item.Id" title="Edit"><i class="fas fa-edit"></i></a> &nbsp;
+                <button class="btn btn-danger" onclick="Delete(@item.Id)" title="Delete"><i class="fa fa-trash" aria-hidden="true"></i></button>
             </td>
         </tr>
         }

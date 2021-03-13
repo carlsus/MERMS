@@ -72,7 +72,7 @@ namespace MERMS.Controllers
                     OfficeNo = model.OfficeNo,
                     MobileNo = model.MobileNo,
                     EmailConfirmed = true,
-                    TwoFactorEnabled = true };
+                    TwoFactorEnabled = false };
                 var result = await _userManager.CreateAsync(user, model.PasswordHash);
                 //_context.Add(applicationUser);
                 await _context.SaveChangesAsync();
